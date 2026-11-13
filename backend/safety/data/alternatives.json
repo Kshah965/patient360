@@ -1,0 +1,6 @@
+{
+  "ibuprofen": [{"drug":"acetaminophen","indication":"pain","rationale":"Pain relief without NSAID bleeding risk.","monitoring":"TODO from source (e.g. INR with regular use)","source":"TODO"}],
+  "naproxen": [{"drug":"acetaminophen","indication":"pain","rationale":"Pain relief without NSAID bleeding risk.","monitoring":"TODO from source","source":"TODO"}],
+  "amoxicillin": [{"drug":"azithromycin","indication":"infection (depends on type)","rationale":"Non-penicillin option; clinician chooses based on the infection.","monitoring":"","source":"TODO"}],
+  "clarithromycin": [{"drug":"azithromycin","indication":"infection (depends on type)","rationale":"Less effect on simvastatin metabolism.","monitoring":"","source":"TODO"}]
+}

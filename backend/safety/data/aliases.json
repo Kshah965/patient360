@@ -1,0 +1,8 @@
+{
+  "advil": "ibuprofen", "motrin": "ibuprofen", "ibuprofin": "ibuprofen", "aleve": "naproxen",
+  "coumadin": "warfarin", "jantoven": "warfarin", "zoloft": "sertraline", "ultram": "tramadol",
+  "viagra": "sildenafil", "nitrostat": "nitroglycerin", "zocor": "simvastatin", "biaxin": "clarithromycin",
+  "zestril": "lisinopril", "prinivil": "lisinopril", "aldactone": "spironolactone", "plavix": "clopidogrel",
+  "prilosec": "omeprazole", "tylenol": "acetaminophen", "paracetamol": "acetaminophen", "amoxil": "amoxicillin",
+  "zithromax": "azithromycin", "asa": "aspirin", "bayer": "aspirin"
+}
