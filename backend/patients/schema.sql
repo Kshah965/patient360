@@ -15,15 +15,23 @@ CREATE TABLE IF NOT EXISTS patients (
   fhir_id        TEXT                          -- Synthea Patient.id when imported
 );
 
+-- Columns added after the first release must also be listed in db.ADDED_COLUMNS,
+-- because CREATE TABLE IF NOT EXISTS does not change an existing table.
 CREATE TABLE IF NOT EXISTS medications (
-  id         INTEGER PRIMARY KEY,
-  patient_id TEXT NOT NULL REFERENCES patients(id) ON DELETE CASCADE,
-  name       TEXT NOT NULL,                    -- display name, 'Warfarin'
-  rxcui      TEXT,                             -- RxNorm code (Synthea has it; seed may be NULL)
-  dose       TEXT,
-  frequency  TEXT,
-  status     TEXT NOT NULL DEFAULT 'active' CHECK (status IN ('active', 'stopped')),
-  started_on TEXT
+  id              INTEGER PRIMARY KEY,
+  patient_id      TEXT NOT NULL REFERENCES patients(id) ON DELETE CASCADE,
+  name            TEXT NOT NULL,               -- display name, 'Warfarin'
+  rxcui           TEXT,                        -- RxNorm code (Synthea has it; seed may be NULL)
+  dose            TEXT,
+  frequency       TEXT,
+  status          TEXT NOT NULL DEFAULT 'active' CHECK (status IN ('active', 'stopped')),
+  started_on      TEXT,
+  -- Set only for drugs prescribed through POST /patients/{id}/medications:
+  prescribed_by   TEXT,
+  prescribed_at   TEXT,                        -- ISO date-time, UTC
+  check_id        INTEGER REFERENCES interaction_results(id),  -- safety check run at prescribing
+  override_reason TEXT,                        -- why it was prescribed despite a serious alert
+  stopped_at      TEXT
 );
 
 CREATE TABLE IF NOT EXISTS allergies (

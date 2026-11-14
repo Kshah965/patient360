@@ -1,29 +1,10 @@
-"""Run from backend/:  OFFLINE=1 python -m pytest -q"""
-import os
+"""Run from backend/:  OFFLINE=1 python -m pytest -q   (client fixture is in conftest.py)"""
 import sqlite3
-import tempfile
 
-os.environ.setdefault("OFFLINE", "1")  # read by safety.rx at import
+import pytest
 
-import pytest  # noqa: E402
-from fastapi.testclient import TestClient  # noqa: E402
-
-from main import app  # noqa: E402
-from patients import repo  # noqa: E402
-from patients.db import session  # noqa: E402
-
-
-@pytest.fixture(scope="module")
-def client():
-    """Fresh seeded DB for this module. Env is restored afterwards so other test modules are unaffected."""
-    old = os.environ.get("MEDPROFILE_DB")
-    os.environ["MEDPROFILE_DB"] = os.path.join(tempfile.mkdtemp(), "patients_test.db")
-    with TestClient(app) as c:  # runs lifespan -> init_db -> seed
-        yield c
-    if old is None:
-        del os.environ["MEDPROFILE_DB"]
-    else:
-        os.environ["MEDPROFILE_DB"] = old
+from patients import repo
+from patients.db import session
 
 
 def test_list_all_seeded(client):

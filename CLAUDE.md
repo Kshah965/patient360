@@ -36,11 +36,18 @@ Frontend (run from `frontend/`): `npm run dev`, `npm run build`, `npm run lint`,
 - **Null vs empty is meaningful.** A section sent as `null` is stored in `patients.unavailable` and returned as `null` ("information unavailable"). `[]` means "nothing documented". Missing allergy info is `unknown`, never `none-known`.
 - **Vitals and labs are rows in `observations`**, one row per reading. The `vitals` object is pivoted from the latest reading of each of the four vitals, and is `null` unless all four exist (until the frontend makes them nullable).
 - **`criticalAlerts`** are computed on read by `patients/critical.py`, never stored. The directory `indicator` is the top alert.
-- **`/check` loads patients via `repo.get_patient_for_check`** and logs results to `interaction_results`. Patient id `demo` still loads `safety/fixtures/demo_patient.json`. The DB demo patient is `SYN-1000`.
+- **`/check` loads patients via `repo.get_patient_for_check`**, logs results to `interaction_results` and returns the row id as `check_id`. Patient id `demo` still loads `safety/fixtures/demo_patient.json` (its `check_id` is null). The DB demo patient is `SYN-1000`.
+- **Prescribing runs the safety check on the server** (`POST /patients/{id}/medications`), so it can't be skipped. A primary (major/contraindicated) alert without an `overrideReason` gets a 409 with the check. The new `medications` row stores `check_id`, `override_reason`, `prescribed_by` and `prescribed_at`. Every attempt is logged, including refused ones. Prescribing for a patient whose med list was `null` changes it to "incomplete", with a critical alert saying so.
+- **Schema changes to existing tables** must be added to `db.ADDED_COLUMNS` as well as `schema.sql`. `ensure_schema` then adds the missing columns on startup. Never tell anyone to delete `medprofile.db` to pick up a schema change: it also holds the DDInter data.
 
 ## Endpoints
 
-`GET /patients?q=` (directory), `GET /patients/{id}/summary` (alias `GET /patients/{id}`), `POST /patients` (201, assigns the next `SYN-####`, 409 on a duplicate id), `POST /patients/{id}/check`.
+- `GET /patients?q=`: directory.
+- `GET /patients/{id}/summary` (alias `GET /patients/{id}`): full record. Medications include `id`.
+- `POST /patients`: 201, assigns the next `SYN-####`, 409 on a duplicate id.
+- `POST /patients/{id}/check`: Aarya's engine, plus `check_id`.
+- `POST /patients/{id}/medications`: prescribe. Body `{ name, dose?, frequency?, rxcui?, prescribedBy?, overrideReason? }`, returns `{ medication, check }`.
+- `PATCH /patients/{id}/medications/{medId}`: body `{ status: "active" | "stopped" }`.
 
 ## Non-negotiable design rules
 

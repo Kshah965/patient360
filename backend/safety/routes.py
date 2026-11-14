@@ -36,11 +36,12 @@ def get_patient(pid):
 
 
 def log_result(pid, result):
+    """Save the result to interaction_results and return its id (None for 'demo' or on DB errors)."""
     try:
         with session() as conn:
-            repo.log_check(conn, pid, result)
+            return repo.log_check(conn, pid, result)
     except sqlite3.OperationalError:
-        pass  # logging must never break a check
+        return None  # logging must never break a check
 
 
 @router.post("/patients/{pid}/check")
@@ -49,5 +50,5 @@ def check_route(pid: str, req: CheckReq):
     if not patient:
         raise HTTPException(404, "patient not found")
     result = check(patient, req.drug)
-    log_result(pid, result)
+    result["check_id"] = log_result(pid, result)
     return result
