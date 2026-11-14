@@ -85,7 +85,7 @@ def test_loader_shape_for_safety_engine(client):
         p = repo.get_patient_for_check(conn, "SYN-1000")
     assert p["age"] == repo._age("1958-05-02")
     assert {"name": "Warfarin", "rxcui": None, "status": "active"} in p["medications"]
-    assert p["allergies"] == [{"allergen": "Penicillin", "severity": "high"}]
+    assert p["allergies"] == [{"allergen": "Penicillin", "reaction": "Hives", "severity": "high"}]
 
 
 def test_check_uses_db_patient_and_logs_result(client):

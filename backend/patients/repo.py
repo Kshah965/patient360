@@ -252,15 +252,18 @@ def list_patients(conn, q=""):
 
 def get_patient_for_check(conn, pid):
     """Shape the safety engine expects (see safety/routes.py). None if unknown."""
-    p = conn.execute("SELECT date_of_birth, allergy_status FROM patients WHERE id = ?", (pid,)).fetchone()
+    p = conn.execute("SELECT date_of_birth, allergy_status, unavailable FROM patients WHERE id = ?", (pid,)).fetchone()
     if not p:
         return None
     meds = _rows(conn, "SELECT name, rxcui, status FROM medications WHERE patient_id = ? ORDER BY id", pid)
-    allergies = _rows(conn, "SELECT allergen, severity FROM allergies WHERE patient_id = ? ORDER BY id", pid)
+    allergies = _rows(conn, "SELECT allergen, reaction, severity FROM allergies WHERE patient_id = ? ORDER BY id", pid)
+    unavailable = set(json.loads(p["unavailable"]))
     return {
         "id": pid,
         "age": _age(p["date_of_birth"]),
         "allergy_status": p["allergy_status"],
-        "medications": [dict(m) for m in meds],
+        # None = list unavailable (the engine reports it as a notice); [] = none documented
+        "medications": None if "medications" in unavailable else [dict(m) for m in meds],
+        "medications_incomplete": "medications-incomplete" in unavailable,
         "allergies": [dict(a) for a in allergies],
     }
