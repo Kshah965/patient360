@@ -269,7 +269,7 @@ export function DrugComparison() {
   }
 
   if (!apiUrl) {
-    return <Card className="p-5"><h2 className="text-lg font-semibold">Compare medications</h2><p className="mt-2 text-sm text-muted-foreground">Comparison needs the backend. Set VITE_API_URL in frontend/.env.local and restart the dev server.</p></Card>
+    return <Card className="p-5"><h2 className="text-lg font-semibold">Compare medications</h2><p className="mt-2 text-sm text-muted-foreground">Comparison needs the backend. Set VITE_API_BASE_URL in frontend/.env.local and restart the dev server.</p></Card>
   }
   if (!selectedId) {
     return <Card className="p-5"><h2 className="text-lg font-semibold">Compare medications</h2><p className="mt-2 text-sm text-muted-foreground">Select a patient to compare medications against their record.</p></Card>

@@ -6,7 +6,7 @@ from safety.engine import check as safety_check
 from . import repo
 from .db import get_conn
 from .models import (MedicationRecord, MedicationStatusIn, Patient, PatientIn, PatientSummary,
-                     PrescribeIn, PrescribeResult)
+                     PrescribeIn, PrescribeResult, VitalsEntryIn)
 
 router = APIRouter(tags=["patients"])
 
@@ -66,3 +66,12 @@ def update_medication_status(pid: str, med_id: int, body: MedicationStatusIn, co
     if not record:
         raise HTTPException(404, "Medication not found for this patient.")
     return record
+
+
+@router.post("/patients/{pid}/vitals", response_model=Patient, status_code=201)
+def record_vitals(pid: str, body: VitalsEntryIn, conn=Depends(get_conn)):
+    """Record vitals taken at this visit. Earlier readings are kept; the summary shows the latest."""
+    if not repo.get_patient(conn, pid):
+        raise HTTPException(404, "Patient record not found.")
+    repo.add_vitals(conn, pid, body)
+    return repo.get_patient(conn, pid)

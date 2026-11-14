@@ -490,7 +490,7 @@ test('patient normalization preserves null versus empty data, medication IDs and
   assert.deepEqual(empty.medications, [])
   assert.equal(empty.allergies.status, 'none-known')
   const partial = normalizePatient({ ...wire, medications: [{ name: 'Test fixture', dose: null, frequency: null }], vitals: { recordedAt: '2026-11-02', heartRate: 70 } }, original.id)
-  assert.equal(partial.vitals, null)
+  assert.deepEqual(partial.vitals, { recordedAt: '2026-11-02', bloodPressure: null, heartRate: 70, temperatureC: null, oxygenSaturation: null }) // partial vitals are kept, missing ones null
   assert.equal(partial.medications[0].dose, 'Not recorded')
 })
 test('malformed patient responses fail explicitly rather than inventing information', () => {

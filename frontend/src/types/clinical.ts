@@ -14,7 +14,8 @@ export interface Patient {
   encounters: { date: string; reason: string; outcome: string }[] | null
   observations?: { recordedAt: string; category: 'vital' | 'lab'; name: string; value: string; unit: string | null }[]
   criticalAlerts?: { severity: 'high' | 'moderate'; kind: string; message: string }[]
-  vitals: { recordedAt: string; bloodPressure: string; heartRate: number; temperatureC: number; oxygenSaturation: number } | null
+  /** Latest reading of each vital; a vital never recorded is null. */
+  vitals: { recordedAt: string; bloodPressure: string | null; heartRate: number | null; temperatureC: number | null; oxygenSaturation: number | null } | null
 }
 export type PatientSummary = Pick<Patient, 'id' | 'name' | 'dateOfBirth' | 'sex'> & { indicator: string }
 export interface ClinicalApi {
@@ -84,5 +85,7 @@ export interface PrescriptionCheckResult {
   alerts: SafetyAlert[]
   limitations: string[]
   provenance: 'synthetic-demo' | 'backend-engine'
+  /** Parts of the check that could not run. Not findings, and never a safety clearance. */
+  notices?: string[]
   backend?: { drug: string; total_found: number; shown: number; disclaimer: string; check_id?: number | null }
 }

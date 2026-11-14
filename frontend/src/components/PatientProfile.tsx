@@ -2,6 +2,7 @@ import type { ReactNode } from 'react'
 import { usePatient } from '@/hooks/usePatient'
 import { formatDate, getAge } from '@/lib/patient'
 import { Button } from '@/components/ui/button'
+import { RecordVitals } from '@/components/RecordVitals'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 
 function Detail({ title, children }: { title: string; children: ReactNode }) {
@@ -27,7 +28,7 @@ export function PatientProfile() {
         <Detail title="Active medical conditions"><TextList items={patient.conditions} empty="No active medical conditions documented." /></Detail>
         <Detail title="Medical history"><TextList items={patient.history} empty="No medical history documented." /></Detail>
         <Detail title="Recent encounters">{patient.encounters === null ? <p className="text-sm text-muted-foreground">Encounter information unavailable.</p> : patient.encounters.length === 0 ? <p className="text-sm text-muted-foreground">No recent encounters documented.</p> : <ul className="space-y-3">{patient.encounters.map((e, i) => <li key={i}><p className="text-base font-medium">{formatDate(e.date)} · {e.reason}</p><p className="text-sm leading-6 text-muted-foreground">{e.outcome}</p></li>)}</ul>}</Detail>
-        <Detail title="Recorded vital signs">{patient.vitals ? <><p className="mb-3 text-sm text-muted-foreground">Recorded {formatDate(patient.vitals.recordedAt)} · Historical measurements</p><dl className="grid grid-cols-2 gap-4 text-sm">{[['Blood pressure', patient.vitals.bloodPressure], ['Heart rate', `${patient.vitals.heartRate} bpm`], ['Temperature', `${patient.vitals.temperatureC} °C`], ['Oxygen saturation', `${patient.vitals.oxygenSaturation}%`]].map(([label, value]) => <div key={label}><dt className="text-muted-foreground">{label}</dt><dd className="mt-1 text-base font-medium">{value}</dd></div>)}</dl></> : <p className="text-sm text-muted-foreground">Vital signs unavailable.</p>}</Detail>
+        <Detail title="Recorded vital signs">{patient.vitals ? <><p className="mb-3 text-sm text-muted-foreground">Latest recorded {formatDate(patient.vitals.recordedAt)} · Historical measurements</p><dl className="grid grid-cols-2 gap-4 text-sm">{[['Blood pressure', patient.vitals.bloodPressure], ['Heart rate', patient.vitals.heartRate == null ? null : `${patient.vitals.heartRate} bpm`], ['Temperature', patient.vitals.temperatureC == null ? null : `${patient.vitals.temperatureC} °C`], ['Oxygen saturation', patient.vitals.oxygenSaturation == null ? null : `${patient.vitals.oxygenSaturation}%`]].map(([label, value]) => <div key={label}><dt className="text-muted-foreground">{label}</dt><dd className={value == null ? 'mt-1 text-sm text-muted-foreground' : 'mt-1 text-base font-medium'}>{value ?? 'Not recorded'}</dd></div>)}</dl></> : <p className="text-sm text-muted-foreground">Vital signs unavailable.</p>}<RecordVitals key={patient.id} patientId={patient.id} /></Detail>
       </>}
     </CardContent>
   </Card>

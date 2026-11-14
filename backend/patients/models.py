@@ -104,6 +104,22 @@ class MedicationStatusIn(BaseModel):
     status: Literal["active", "stopped"]
 
 
+class VitalsEntryIn(BaseModel):
+    """POST /patients/{id}/vitals: vitals the clinician just took. Any subset, at least one."""
+    bloodPressure: Optional[str] = Field(default=None, pattern=r"^\s*\d{2,3}\s*/\s*\d{2,3}\s*(mmHg)?\s*$")
+    heartRate: Optional[float] = Field(default=None, ge=20, le=250)
+    temperatureC: Optional[float] = Field(default=None, ge=30, le=45)
+    oxygenSaturation: Optional[float] = Field(default=None, ge=50, le=100)
+
+    @model_validator(mode="after")
+    def at_least_one(self):
+        if all(v is None for v in (self.bloodPressure, self.heartRate, self.temperatureC, self.oxygenSaturation)):
+            raise ValueError("Enter at least one vital sign.")
+        if self.bloodPressure:
+            self.bloodPressure = "/".join(x.strip() for x in self.bloodPressure.replace("mmHg", "").split("/"))
+        return self
+
+
 # ---------- output ----------
 
 class Allergy(BaseModel):
@@ -152,11 +168,12 @@ class Encounter(BaseModel):
 
 
 class Vitals(BaseModel):
+    """Latest reading of each vital. A vital that was never recorded is null."""
     recordedAt: str
-    bloodPressure: str
-    heartRate: float
-    temperatureC: float
-    oxygenSaturation: float
+    bloodPressure: Optional[str]
+    heartRate: Optional[float]
+    temperatureC: Optional[float]
+    oxygenSaturation: Optional[float]
 
 
 class Observation(BaseModel):

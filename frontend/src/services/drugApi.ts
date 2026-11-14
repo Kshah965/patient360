@@ -1,10 +1,12 @@
 import type { CompareResponse, DrugInfo, PrescribeRequest, PrescribeResult } from '../types/drugs'
+import { apiConfig } from './apiConfig'
 
-// Same backend as httpClinicalApi.ts. Undefined means the frontend runs on mock data only.
-export const apiUrl: string | undefined = import.meta.env?.VITE_API_URL?.replace(/\/+$/, '')
+// Same backend URL as the other HTTP adapters (VITE_API_BASE_URL, or the legacy VITE_API_URL).
+// Empty means the frontend runs on mock data only.
+export const apiUrl: string | undefined = apiConfig.baseUrl.replace(/\/+$/, '') || undefined
 
 async function send<T>(path: string, init: RequestInit = {}): Promise<{ status: number; body: T }> {
-  if (!apiUrl) throw new Error('No backend configured (VITE_API_URL).')
+  if (!apiUrl) throw new Error('No backend configured (VITE_API_BASE_URL).')
   const response = await fetch(`${apiUrl}${path}`, {
     ...init,
     headers: init.body ? { 'Content-Type': 'application/json' } : undefined,

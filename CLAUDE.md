@@ -29,16 +29,18 @@ python -m drugs.scripts.prewarm_info --refresh # re-summarize cached labels, e.g
 
 `backend/conftest.py` points every test at empty temp databases before anything imports `safety.engine` or `safety.rx`, which open their SQLite files at import time. It also sets `OFFLINE=1` and `DRUG_INFO_LLM=0`, so tests never call openFDA or Claude.
 
-Frontend (run from `frontend/`): `npm run dev`, `npm run build`, `npm run lint`, `node --test tests/patients.test.mjs` (Node 22.15+). `package-lock.json` is out of sync with `package.json`, so `npm ci` fails; use `npm install`. Set `VITE_API_URL=http://localhost:8000` (e.g. in gitignored `frontend/.env.local`) to use the backend; without it the frontend uses `src/mocks/patients.ts`.
+Frontend (run from `frontend/`): `npm run dev`, `npm run build`, `npm run lint`, `node --test tests/patients.test.mjs` (Node 22.15+). `package-lock.json` is out of sync with `package.json`, so `npm ci` fails; use `npm install`. To use the backend, put `VITE_API_BASE_URL=http://127.0.0.1:8000` and `VITE_PATIENT_DATA_MODE=backend` in gitignored `frontend/.env.local` (see `frontend/.env.example`; `VITE_API_URL` is a legacy alias). The header's "Patient data" switch flips between mock and backend at runtime. All HTTP adapters read `src/services/apiConfig.ts`.
 
 ## Architecture
 
 - **One SQLite file, `backend/medprofile.db`** (env `MEDPROFILE_DB`, gitignored). It holds the patient tables (`backend/patients/schema.sql`) and Aarya's `drug_interactions` table. The team decided against Supabase. Curated interactions and alternatives stay in `backend/safety/data/*.json`.
-- **`backend/main.py`** mounts two routers: `patients/routes.py` (Davi) and `safety/routes.py` (Aarya).
+- **`backend/main.py`** mounts four routers: `patients/routes.py` and `drugs/routes.py` (Davi), `safety/routes.py` (Aarya) and `explanations/routes.py` (Krishna: optional GPT-4.1 mini extractive explanations, off unless `LLM_ENABLED=1` and `OPENAI_API_KEY` are set; templates otherwise).
+- **The engine returns `notices`** for parts of a check that could not run (unknown allergies, missing or incomplete med list). The checker and the comparison both show them; they are not findings and never mean safe.
+- **Curated data provenance:** every row in `safety/data/curated.json` is sourced. The rows that had no DDInter text were filled from FDA labels by `drugs/scripts/fill_curated_from_labels.py`, which refuses to write unless each quote is found word for word in the label.
 - **Every write goes through `patients.repo.create_patient`.** That covers the seed file, `POST /patients` and the FHIR importer. Input shape is `models.PatientIn`, which matches the frontend `Patient` plus extras (`rxcui`, `status`, allergy `severity`, `observations`).
 - **Responses use the camelCase keys of `frontend/src/types/clinical.ts`**, so `frontend/src/services/httpClinicalApi.ts` is a plain fetch. Aarya's `/check` response stays snake_case.
 - **Null vs empty is meaningful.** A section sent as `null` is stored in `patients.unavailable` and returned as `null` ("information unavailable"). `[]` means "nothing documented". Missing allergy info is `unknown`, never `none-known`.
-- **Vitals and labs are rows in `observations`**, one row per reading. The `vitals` object is pivoted from the latest reading of each of the four vitals, and is `null` unless all four exist (until the frontend makes them nullable).
+- **Vitals and labs are rows in `observations`**, one row per reading. The `vitals` object is pivoted from the latest reading of each of the four vitals; a vital never recorded is `null`, and `vitals` is `null` only when none exist. `POST /patients/{id}/vitals` adds readings taken now (the profile's "Record vitals now" form) without overwriting older ones.
 - **`criticalAlerts`** are computed on read by `patients/critical.py`, never stored. The directory `indicator` is the top alert.
 - **`/check` loads patients via `repo.get_patient_for_check`**, logs results to `interaction_results` and returns the row id as `check_id`. Patient id `demo` still loads `safety/fixtures/demo_patient.json` (its `check_id` is null). The DB demo patient is `SYN-1000`.
 - **Prescribing runs the safety check on the server** (`POST /patients/{id}/medications`), so it can't be skipped. A primary (major/contraindicated) alert without an `overrideReason` gets a 409 with the check. The new `medications` row stores `check_id`, `override_reason`, `prescribed_by` and `prescribed_at`. Every attempt is logged, including refused ones. Prescribing for a patient whose med list was `null` changes it to "incomplete", with a critical alert saying so.
@@ -61,6 +63,8 @@ Frontend (run from `frontend/`): `npm run dev`, `npm run build`, `npm run lint`,
 - `POST /patients/{id}/medications`: prescribe. Body `{ name, dose?, frequency?, rxcui?, prescribedBy?, overrideReason? }`, returns `{ medication, check }`.
 - `PATCH /patients/{id}/medications/{medId}`: body `{ status: "active" | "stopped" }`.
 - `POST /patients/{id}/compare`: body `{ drugs: [1-4 names] }`. Returns a per-drug `riskLevel` (`contraindicated` | `major` | `moderate` | `minor` | `none-found`), `reasons`, `counts`, `checkId`, plus `suggestedAlternatives`.
+- `GET /drugs?q=`: known medication names for the picker (`[{name, drug}]`, brands included). Any other name can still be checked.
+- `POST /patients/{id}/vitals`: body any of `{ bloodPressure: "120/80", heartRate, temperatureC, oxygenSaturation }`, range-checked; returns the patient.
 - `GET /drugs/{name}/info`: FDA label summary and cited facts. Doesn't depend on the patient.
 
 The frontend's `src/components/DrugComparison.tsx` (on the Medication Safety page) uses these through `src/services/drugApi.ts`, and prescribes through the endpoint above.
@@ -99,13 +103,7 @@ Show one serious alert up front, with a line on why *this patient's* context rai
 
 ## Demo script (what must work)
 
-Demo patient: on **warfarin + sertraline**, with a **penicillin allergy**.
-1. ER summary flags warfarin (blood thinner) at the top, plus allergies, conditions and recent history.
-2. Propose **ibuprofen**. The serious alert is bleeding risk with warfarin (and sertraline). Other findings are collapsed. "1 of 6" counter shown.
-3. Each alert shows its DDInter source and a plain-language explanation. Alternatives (acetaminophen) are shown with rationale.
-4. Propose **amoxicillin**. This triggers a class-level penicillin allergy alert.
-
-Other known test cases: simvastatin + clarithromycin, SSRIs + tramadol, sildenafil + nitrates.
+The current walkthrough, with the real counts from the seed data, is in `DEMO.md`. Demo patients: Owen Calder (`SYN-1002`, warfarin; ibuprofen shows 1 of 4 findings) and Walter Haines (`SYN-1000`, warfarin + sertraline + aspirin, penicillin allergy; amoxicillin triggers the allergy alert). Theo Wren (`SYN-1004`) shows the "could not be checked" notices.
 
 ## Priorities
 

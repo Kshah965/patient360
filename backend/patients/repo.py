@@ -169,20 +169,42 @@ def get_medication(conn, patient_id, medication_id):
 
 
 def _vitals(vital_rows):
-    """Latest reading of each vital. The frontend type needs all four, so partial sets give None."""
+    """Latest reading of each vital; a vital never recorded is None. None when no vitals at all."""
     latest = {}
     for r in vital_rows:  # newest first
         latest.setdefault(r["name"], r)
-    if not all(name in latest for name, _ in VITAL_FIELDS.values()):
+    names = [name for name, _ in VITAL_FIELDS.values()]
+    if not any(n in latest for n in names):
         return None
-    bp = latest["blood_pressure"]
+
+    def number(name):
+        return float(latest[name]["value"]) if name in latest else None
+
+    bp = latest.get("blood_pressure")
     return {
-        "recordedAt": max(r["recorded_at"] for r in latest.values())[:10],
-        "bloodPressure": f"{bp['value']} {bp['unit'] or 'mmHg'}",
-        "heartRate": float(latest["heart_rate"]["value"]),
-        "temperatureC": float(latest["temperature_c"]["value"]),
-        "oxygenSaturation": float(latest["oxygen_saturation"]["value"]),
+        "recordedAt": max(latest[n]["recorded_at"] for n in names if n in latest)[:10],
+        "bloodPressure": f"{bp['value']} {bp['unit'] or 'mmHg'}" if bp else None,
+        "heartRate": number("heart_rate"),
+        "temperatureC": number("temperature_c"),
+        "oxygenSaturation": number("oxygen_saturation"),
     }
+
+
+def add_vitals(conn, patient_id, entry):
+    """Record vitals taken now (entry: models.VitalsEntryIn). One row per reading; nothing is overwritten."""
+    now = datetime.now(timezone.utc).isoformat(timespec="seconds")
+    rows = []
+    for key, (name, unit) in VITAL_FIELDS.items():
+        value = getattr(entry, key)
+        if value is None:
+            continue
+        value = value.replace("mmHg", "").strip() if key == "bloodPressure" else _fmt_number(value)
+        rows.append((patient_id, now, "vital", name, value, unit))
+    conn.executemany(
+        "INSERT INTO observations (patient_id, recorded_at, category, name, value, unit) VALUES (?, ?, ?, ?, ?, ?)",
+        rows,
+    )
+    return len(rows)
 
 
 def get_patient(conn, pid):

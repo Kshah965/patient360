@@ -37,8 +37,10 @@ export function normalizePatient(value: unknown, expectedId: string): Patient {
   let vitals: Patient['vitals'] = null
   if (p.vitals !== null) {
     const v = object(p.vitals)
-    const complete = typeof v.bloodPressure === 'string' && ['heartRate', 'temperatureC', 'oxygenSaturation'].every(k => typeof v[k] === 'number' && Number.isFinite(v[k]))
-    if (complete) vitals = { recordedAt: text(v.recordedAt), bloodPressure: text(v.bloodPressure), heartRate: v.heartRate as number, temperatureC: v.temperatureC as number, oxygenSaturation: v.oxygenSaturation as number }
+    const num = (k: string): number | null => { const x = v[k]; if (x == null) return null; if (typeof x !== 'number' || !Number.isFinite(x)) throw new PatientApiError('Invalid vital sign value.'); return x }
+    const partial = { bloodPressure: v.bloodPressure == null ? null : text(v.bloodPressure), heartRate: num('heartRate'), temperatureC: num('temperatureC'), oxygenSaturation: num('oxygenSaturation') }
+    // Partial sets are kept: missing vitals stay null and are shown as not recorded.
+    if (Object.values(partial).some(x => x !== null)) vitals = { recordedAt: text(v.recordedAt), ...partial }
   }
   return {
     ...who, allergies, vitals,

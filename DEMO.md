@@ -2,7 +2,7 @@
 
 ## Start reliably
 
-Use the current synthetic seed/SQLite records; do not reset or delete medprofile.db (it may also contain DDInter data). The canonical seed is backend/patients/data/seed_patients.json. No extra sertraline entry is required for this walkthrough.
+Use the current synthetic seed/SQLite records. Never delete medprofile.db (it may also contain DDInter data); to undo rehearsal changes (prescriptions, recorded vitals) run `python -m patients.seed`, which only resets patient tables. The canonical seed is backend/patients/data/seed_patients.json. No extra sertraline entry is required for this walkthrough.
 
 Backend terminal, from the repository root, using the provisioned Python environment:
 
@@ -45,11 +45,14 @@ Templates are a complete offline explanation path. Optional GPT-4.1 mini use req
 2. Select Owen. Point out his documented allergy status, conditions and actual current medications: **warfarin 3 mg daily, metoprolol tartrate 25 mg twice daily, lisinopril 10 mg daily, atorvastatin 20 mg nightly**.
 3. Click **Generate Emergency Summary**. “This structured report comes from the same backend record. Critical information comes first: the backend flags warfarin as a blood thinner. Missing information stays explicit.”
 4. Optionally click **Prepare explanation** below the summary. “These are source-bound handoff excerpts. With no provider key, the application clearly labels the deterministic template; the patient facts are still available.”
-5. Open Medication Safety, retaining Owen's selection. Search/select **Ibuprofen**, then **Check Medication Safety**.
-6. “The deterministic engine reports two findings in the current offline seed setup: a **major warfarin interaction**, shown first, and a **moderate lisinopril interaction**, available under the expansion control.” The actual counter is **1 of 2**, not 1 of 6. Expand the second finding.
+5. Open Medication Safety, retaining Owen's selection. In **Search medications** type `adv` and pick **Advil (ibuprofen)** (brand names resolve to the ingredient), then **Check Medication Safety**.
+6. “The deterministic engine found four interactions but shows one: the **major warfarin bleeding risk**, with this patient's context (age 65+). The moderate metoprolol and lisinopril findings and the minor atorvastatin one are collapsed.” The counter reads **1 of 4 findings shown**. Expand to show the rest. Point out **acetaminophen** under *Alternatives for review*, with its rationale and source: suggested, never substituted.
 7. Review the backend severity, verification flag, management text and supplied source labels. “Those verification flags are backend metadata, not independent clinical validation. Missing source IDs remain missing.”
 8. Click **Prepare explanation**. “The explanation reads this patient's stored check ID. Only eligible verified findings can reach the model. AI cannot modify severity, add interactions or decide whether to prescribe.” Show the **Deterministic template** label by default; show **AI-assisted source excerpts** only after a real successful provider call.
-9. Close: “Patient360 focuses the review without replacing clinical judgment. No matches in a limited dataset are not proof of safety.”
+9. **Compare options side by side.** Scroll to **Compare medications for Owen Calder**. Type `ibuprofen`, press **Compare**, then click **+ acetaminophen (pain)**. “Each column is this patient's risk profile (Major vs Moderate, with the reasons) next to facts from the drug's FDA label, each with the exact label sentence one click away.” Open **Prescribe ibuprofen** and press **Confirm**: the server re-runs the check and asks for an override reason. Cancel, then prescribe acetaminophen to show the medication list update.
+10. **Missing information is never “safe”.** Change patient to **Theo Wren (SYN-1004)** and check ibuprofen: zero findings, but a banner says the medication list and allergies **could not be checked**. In his profile, **Record vitals now** (e.g. BP 142/90, HR 104): the new readings show at once and the ones not taken stay “Not recorded”.
+11. Optional: **Walter Haines (SYN-1000)** + amoxicillin shows the penicillin-class allergy alert with his recorded reaction.
+12. Close: “Patient360 focuses the review without replacing clinical judgment. No matches in a limited dataset are not proof of safety.”
 
 ## Expected-result checklist
 
@@ -64,6 +67,10 @@ Templates are a complete offline explanation path. Optional GPT-4.1 mini use req
 - [ ] Alternatives are not automatically substituted. Suggestions lacking verification metadata remain withheld, with the reason shown.
 - [ ] Patient/drug/source changes clear stale results; backend errors do not produce mock success.
 - [ ] DDInter attribution is visible.
+- [ ] Owen + Advil/ibuprofen: 1 of 4 findings shown; acetaminophen offered as an alternative with its source.
+- [ ] Comparison: ibuprofen **Major**, acetaminophen **Moderate**; prescribing ibuprofen asks for an override reason; acetaminophen prescribes and appears in the profile.
+- [ ] Theo: “Parts of this check could not run” banner; recorded vitals appear with missing ones marked “Not recorded”.
+- [ ] After rehearsing, reset with `cd backend && .venv/bin/python -m patients.seed` (keeps DDInter).
 
 Counts may differ in an existing edited database or with a different DDInter import. Inspect actual data before presenting; never alter records/rules to force a count. Walter Haines (SYN-1000) and legacy demo are different patients and must not be presented as Owen.
 

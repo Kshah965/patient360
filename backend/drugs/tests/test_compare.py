@@ -70,3 +70,10 @@ def test_validation(client):
     assert compare(client, "SYN-1000", ["a", "b", "c", "d", "e"]).status_code == 422
     assert compare(client, "SYN-1000", ["   "]).status_code == 422
     assert compare(client, "nobody", ["ibuprofen"]).status_code == 404
+
+
+def test_drug_catalog(client):
+    names = {e["name"]: e["drug"] for e in client.get("/drugs").json()}
+    assert names["Advil (ibuprofen)"] == "ibuprofen" and names["Coumadin (warfarin)"] == "warfarin"
+    assert "Ibuprofin (ibuprofen)" not in names  # misspelling aliases are not offered
+    assert [e["drug"] for e in client.get("/drugs", params={"q": "zolo"}).json()] == ["sertraline"]
