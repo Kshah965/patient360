@@ -1,0 +1,58 @@
+{
+ "ingredient": "furosemide",
+ "promptVersion": 1,
+ "label": {
+  "ingredient": "furosemide",
+  "setId": "668e9f1f-0df0-45f6-8281-f1b98a4a681d",
+  "effectiveTime": "20261029",
+  "url": "https://dailymed.nlm.nih.gov/dailymed/lookup.cfm?setid=668e9f1f-0df0-45f6-8281-f1b98a4a681d",
+  "brandNames": [
+   "Furosemide"
+  ],
+  "drugClass": [
+   "Loop Diuretic"
+  ],
+  "productType": "HUMAN PRESCRIPTION DRUG",
+  "sections": {
+   "indications_and_usage": "Edema Furosemide tablets are indicated in adults and pediatric patients for the treatment of edema associated with congestive heart failure, cirrhosis of the liver, and renal disease, including the nephrotic syndrome. Furosemide Tablets are particularly useful when an agent with greater diuretic potential is desired. Hypertension Oral furosemide may be used in adults for the treatment of hypertension alone or in combination with other antihypertensive agents. Hypertensive patients who cannot be adequately controlled with thiazides will probably also not be adequately controlled with furosemide alone.",
+   "contraindications": "Furosemide tablets are contraindicated in patients with anuria and in patients with a history of hypersensitivity to furosemide.",
+   "warnings_and_cautions": "In patients with hepatic cirrhosis and ascites, furosemide therapy is best initiated in the hospital. In hepatic coma and in states of electrolyte depletion, therapy should not be instituted until the basic condition is improved. Sudden alterations of fluid and electrolyte balance in patients with cirrhosis may precipitate hepatic coma; therefore, strict observation is necessary during the period of diuresis. Supplemental potassium chloride and, if required, an aldosterone antagonist are helpful in preventing hypokalemia and metabolic alkalosis. If increasing azotemia and oliguria occur during treatment of severe progressive renal disease, furosemide should be discontinued. Cases of tinnitus and reversible or irreversible hearing impairment and deafness have been reported. Reports usually indicate that furosemide ototoxicity is associated with rapid injection, severe renal impairment, the use of higher than recommended doses, hypoproteinemia or concomitant therapy with aminoglycoside antibiotics, ethacrynic acid, or other ototoxic drugs. If the physician elects to use high dose parenteral therapy, controlled intravenous infusion is advisable (for adults, an infusion rate not exceeding 4mg furosemide per minute has been used) (see PRECAUTIONS : Drug Interactions).",
+   "adverse_reactions": "Adverse reactions are categorized below by organ system and listed by decreasing severity. Gastrointestinal System Reactions 1.hepatic encephalopathy in patients with hepatocellular insufficiency 6. oral and gastric irritation 2. pancreatitis 7. cramping 3. jaundice (intrahepatic cholestatic jaundice) 8. diarrhea 4. increased liver enzymes 9. constipation 5. anorexia 10. nausea 11. vomiting Systemic Hypersensitivity Reactions 1. severe anaphylactic or anaphylactoid reactions (eg., with shock) 3. interstitial nephritis 2. systemic vasculitis 4. necrotizing angiitis Central Nervous System Reactions 1. tinnitus and hearing loss 5. headache 2. paresthesias 6. blurred vision 3. vertigo 7. xanthopsia 4. dizziness Hematologic Reactions 1. aplastic anemia 5. leukopenia 2. thrombocytopenia 6. anemia 3. agranulocytosis 7.eosinophilia 4. hemolytic anemia Dermatologic-Hypersensitivity Reactions 1. toxic epidermal necrolysis 2. stevens-johnson syndrome 3. erythema multiforme 4. drug rash with eosinophilia and systemic symptoms 5. acute generalized exanthematous pustulosis 6. exfoliative dermatitis 7. bullous pemphigoid 8. purpura 9. photosensitivity 10. rash 11. pruritis 12. urticaria Cardiovascular Reaction Orthostatic hypotension may occur and be aggravated by alcohol, barbiturates, or narcotics. Increase in cholesterol and triglyceride serum levels Other Reactions 1. hyperglycemia 6. restlessness 2. glycosuria 7. urinary bladder spasm 3. hyperuricemia 8. thrombophlebitis 4. muscle spasm 5. weakness 9. fever Whenever adverse reactions are moderate or severe, furosemide dosage should be reduced or therapy withdrawn. To report SUSPECTED ADVERSE REACTIONS, contact Rising Pharma Holdings, Inc. at 1-844-874-7464 or FDA at 1-800-FDA-1088 or www.fda.gov/medwatch.",
+   "mechanism_of_action": "Investigations into the mode of action of furosemide have utilized micro puncture studies in rats, stop flow experiments in dogs and various clearance studies in both humans and experimental animals. It has been demonstrated that furosemide inhibits primarily the absorption of sodium and chloride not only in the proximal and distal tubules but also in the loop of Henle. The high degree of efficacy is largely due to the unique site of action. The action on the distal tubule is independent of any inhibitory effect on carbonic anhydrase and aldosterone. Recent evidence suggests that furosemide glucuronide is the only or at least the major biotransformation product of furosemide in man. Furosemide is extensively bound to plasma proteins, mainly to albumin. Plasma concentrations ranging from 1 μg/mL to 400 μg/mL are 91% to 99% bound in healthy individuals. The unbound fraction averages 2.3% to 4.1% at therapeutic concentrations. The onset of diuresis following oral administration is within 1 hour. The peak effect occurs within the first or second hour. The duration of diuretic effect is 6 to 8 hours. In fasted normal men, the mean bioavailability of furosemide from Furosemide tablets and Furosemide Oral Solution is 64% and 60%, respectively, of that from an intravenous injection of the drug. Although furosemide is more rapidly absorbed from the oral solution (50 minutes) than from the tablet (87 minutes), peak plasma levels and area under the plasma concentration-time curves do not differ significantly. Peak plasma concentrations increase with increasing dose but times-to-peak do not differ among doses. The terminal half-life of furosemide is approximately 2 hours. Significantly more furosemide is excreted in urine following the IV injection than after the tablet or oral solution. There are no significant differences between the two oral formulations in the amount of unchanged drug excreted in urine. Geriatric Population Furosemide binding to albumin may be reduced in elderly patients. Furosemide is predominantly excreted unchanged in the urine. The renal clearance of furosemide after intravenous administration in older healthy male subjects (60 to 70 years of age) is statistically significantly smaller than in younger healthy male subjects (20 to 35 years of age). The initial diuretic effect of furosemide in older subjects is decreased relative to younger subjects (see PRECAUTIONS : Geriatric Use)."
+  }
+ },
+ "summary": {
+  "summary": {
+   "text": "Edema Furosemide tablets are indicated in adults and pediatric patients for the treatment of edema associated with congestive heart failure, cirrhosis of the liver, and renal disease, including the nephrotic syndrome.",
+   "section": "indications_and_usage",
+   "quote": "Edema Furosemide tablets are indicated in adults and pediatric patients for the treatment of edema associated with congestive heart failure, cirrhosis of the liver, and renal disease, including the nephrotic syndrome."
+  },
+  "facts": [
+   {
+    "topic": "contraindications",
+    "text": "Furosemide tablets are contraindicated in patients with anuria and in patients with a history of hypersensitivity to furosemide.",
+    "section": "contraindications",
+    "quote": "Furosemide tablets are contraindicated in patients with anuria and in patients with a history of hypersensitivity to furosemide."
+   },
+   {
+    "topic": "warnings",
+    "text": "In patients with hepatic cirrhosis and ascites, furosemide therapy is best initiated in the hospital.",
+    "section": "warnings_and_cautions",
+    "quote": "In patients with hepatic cirrhosis and ascites, furosemide therapy is best initiated in the hospital."
+   },
+   {
+    "topic": "common_side_effects",
+    "text": "Adverse reactions are categorized below by organ system and listed by decreasing severity.",
+    "section": "adverse_reactions",
+    "quote": "Adverse reactions are categorized below by organ system and listed by decreasing severity."
+   },
+   {
+    "topic": "how_it_works",
+    "text": "Investigations into the mode of action of furosemide have utilized micro puncture studies in rats, stop flow experiments in dogs and various clearance studies in both humans and experimental animals.",
+    "section": "mechanism_of_action",
+    "quote": "Investigations into the mode of action of furosemide have utilized micro puncture studies in rats, stop flow experiments in dogs and various clearance studies in both humans and experimental animals."
+   }
+  ],
+  "generatedBy": "template"
+ }
+}

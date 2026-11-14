@@ -1,0 +1,56 @@
+{
+ "ingredient": "albuterol",
+ "promptVersion": 1,
+ "label": {
+  "ingredient": "albuterol",
+  "setId": "5d62969b-2ad9-6cf0-e063-6394a90ac2f0",
+  "effectiveTime": "20261009",
+  "url": "https://dailymed.nlm.nih.gov/dailymed/lookup.cfm?setid=5d62969b-2ad9-6cf0-e063-6394a90ac2f0",
+  "brandNames": [
+   "Albuterol Sulfate"
+  ],
+  "drugClass": [],
+  "productType": "HUMAN PRESCRIPTION DRUG",
+  "sections": {
+   "indications_and_usage": "Albuterol inhalation solution is indicated for the relief of bronchospasm in patients 2 years of age and older with reversible obstructive airway disease and acute attacks of bronchospasm.",
+   "contraindications": "Albuterol inhalation solution is contraindicated in patients with a history of hypersensitivity to any of its components.",
+   "warnings": "As with other inhaled beta-adrenergic agonists, albuterol inhalation solution can produce paradoxical bronchospasm, which can be life threatening. If it occurs, the preparation should be discontinued immediately and alternative therapy instituted. Fatalities have been reported in association with excessive use of inhaled sympathomimetic drugs and with the home use of nebulizers. It is, therefore, essential that the physician instruct the patient in the need for further evaluation, if his/her asthma becomes worse. In individual patients, any beta 2 -adrenergic agonist, including albuterol solution for inhalation, may have a clinically significant cardiac effect. Immediate hypersensitivity reactions may occur after administration of albuterol as demonstrated by rare cases of urticaria, angioedema, rash, bronchospasm, and oropharyngeal edema.",
+   "adverse_reactions": "Clinical Trial Experience The results of clinical trials with albuterol inhalation solution in 135 patients showed the following side effects which were considered probably or possibly drug related: Central Nervous System: tremors (20%), dizziness (7%), nervousness (4%), headache (3%), insomnia (1%). Gastrointestinal: nausea (4%), dyspepsia (1%). Ear, Nose and Throat: pharyngitis (<1%), nasal congestion (1%). Cardiovascular: tachycardia (1%), hypertension (1%). Respiratory: bronchospasm (8%), cough (4%), bronchitis (4%), wheezing (1%). No clinically relevant laboratory abnormalities related to albuterol inhalation solution administration were determined in these studies. In comparing the adverse reactions reported for patients treated with albuterol inhalation solution with those of patients treated with isoproterenol during clinical trials of three months, the following moderate to severe reactions, as judged by the investigators, were reported. This table does not include mild reactions. Percent Incidence of Moderate to Severe Adverse Reactions Reaction Albuterol N=65 Isoproterenol N=65 Central Nervous System Tremors 10.7% 13.8% Headache 3.1% 1.5% Insomnia 3.1% 1.5% Cardiovascular Hypertension 3.1% 3.1% Arrhythmias 0% 3% The finding of no arrhythmias and no palpitations after albuterol administration in this clinical study should not be interpreted as indicating that these adverse effects cannot occur after the administration of inhaled albuterol. Palpitation 0% 22% Respiratory In most cases of bronchospasm, this term was generally used to describe exacerbations in the underlying pulmonary disease. Bronchospasm 15.4% 18% Cough 3.1% 5% Bronchitis 1.5% 5% Wheeze 1.5% 1.5% Sputum Increase 1.5% 1.5% Dyspnea 1.5% 1.5% Gastrointestinal Nausea 3.1% 0% Dyspepsia 1.5% 0% Systemic Malaise 1.5% 0% Postmarketing Experience Cases of urticaria, angioedema, rash, bronchospasm, hoarseness, oropharyngeal edema, arrhythmias (including atrial fibrillations, supraventricular tachycardia, extrasystoles) and metabolic acidosis have been reported after the use of albuterol inhalation solution. Because these reactions are reported voluntarily from a population of uncertain size, it is not always possible to reliably estimate their frequency or establish a causal relationship to drug exposure.",
+   "mechanism_of_action": "The prime action of beta-adrenergic drugs is to stimulate adenyl cyclase, the enzyme which catalyzes the formation of cyclic-3’,5’-adenosine monophosphate (cyclic AMP) from adenosine triphosphate (ATP). The cyclic AMP thus formed mediates the cellular responses. In vitro studies and in vivo pharmacologic studies have demonstrated that albuterol has a preferential effect on beta 2 -adrenergic receptors compared with isoproterenol. While it is recognized that beta 2 -adrenergic receptors are the predominant receptors in bronchial smooth muscle, 10% to 50% of the beta-receptors in the human heart may be beta 2 -receptors. The precise function of these receptors, however, is not yet established. Albuterol has been shown in most controlled clinical trials to have more effect on the respiratory tract in the form of bronchial smooth muscle relaxation than isoproterenol at comparable doses while producing fewer cardiovascular effects. Controlled clinical studies and other clinical experience have shown that inhaled albuterol, like other beta-adrenergic agonist drugs, can produce a significant cardiovascular effect in some patients, as measured by pulse rate, blood pressure, symptoms, and/or electrocardiographic changes. Albuterol is longer acting than isoproterenol in most patients by any route of administration because it is not a substrate for the cellular uptake processes for catecholamines nor for catechol-O-methyl transferase. Studies in asthmatic patients have shown that less than 20% of a single albuterol dose was absorbed following IPPB (intermittent positive-pressure breathing) or nebulizer administration; the remaining amount was recovered from the nebulizer and apparatus and expired air. Most of the absorbed dose was recovered in the urine 24 hours after drug administration. Following a 3 mg dose of nebulized albuterol, the maximum albuterol plasma level at 0.5 hour was 2.1 ng/mL (range 1.4 to 3.2 ng/mL). There was a significant dose-related response in FEV 1 (forced expiratory volume in one second) and peak flow rate. It has been demonstrated that following oral administration of 4 mg albuterol, the elimination half-life was five to six hours. Animal studies show that albuterol does not pass the blood-brain barrier. Recent studies in laboratory animals (minipigs, rodents, and dogs) recorded the occurrence of cardiac arrhythmias and sudden death (with histologic evidence of myocardial necrosis) when beta-agonists and methylxanthines were administered concurrently. The significance of these findings when applied to humans is currently unknown. In controlled clinical trials, most patients exhibited an onset of improvement in pulmonary function within 5 minutes as determined by FEV 1 . FEV 1 measurements also showed that the maximum average improvement in pulmonary function usually occurred at approximately 1 hour following inhalation of 2.5 mg of albuterol by compressor- nebulizer, and remained close to peak for 2 hours. Clinically significant improvement in pulmonary function (defined as maintenance of a 15% or more increase in FEV 1 over baseline values) continued for 3 to 4 hours in most patients and in some patients continued up to 6 hours. In repetitive dose studies, continued effectiveness was demonstrated throughout the three-month period of treatment in some patients. Published reports of trials in asthmatic children aged 3 years or older have demonstrated significant improvement in either FEV 1 or PEFR within 2 to 20 minutes following single dose of albuterol inhalation solution. An increase of 15% or more in baseline FEV 1 has been observed in children aged 5 to 11 years up to 6 hours after treatment with doses of 0.10 mg/kg or higher of albuterol inhalation solution. Single doses of 3, 4 or 10 mg resulted in improvement in baseline PER that was comparable to extent and duration to a 2 mg dose, but doses above 3 mg were associated with heart rate increases of more than 10%."
+  }
+ },
+ "summary": {
+  "summary": {
+   "text": "Albuterol inhalation solution is indicated for the relief of bronchospasm in patients 2 years of age and older with reversible obstructive airway disease and acute attacks of bronchospasm.",
+   "section": "indications_and_usage",
+   "quote": "Albuterol inhalation solution is indicated for the relief of bronchospasm in patients 2 years of age and older with reversible obstructive airway disease and acute attacks of bronchospasm."
+  },
+  "facts": [
+   {
+    "topic": "contraindications",
+    "text": "Albuterol inhalation solution is contraindicated in patients with a history of hypersensitivity to any of its components.",
+    "section": "contraindications",
+    "quote": "Albuterol inhalation solution is contraindicated in patients with a history of hypersensitivity to any of its components."
+   },
+   {
+    "topic": "warnings",
+    "text": "As with other inhaled beta-adrenergic agonists, albuterol inhalation solution can produce paradoxical bronchospasm, which can be life threatening.",
+    "section": "warnings",
+    "quote": "As with other inhaled beta-adrenergic agonists, albuterol inhalation solution can produce paradoxical bronchospasm, which can be life threatening."
+   },
+   {
+    "topic": "common_side_effects",
+    "text": "Clinical Trial Experience The results of clinical trials with albuterol inhalation solution in 135 patients showed the following side effects which were considered probably or possibly drug related: Central Nervous System: tremors (20%), dizziness (7%), nervousness (4%), headache (3%), insomnia…",
+    "section": "adverse_reactions",
+    "quote": "Clinical Trial Experience The results of clinical trials with albuterol inhalation solution in 135 patients showed the following side effects which were considered probably or possibly drug related: Central Nervous System: tremors (20%), dizziness (7%), nervousness (4%), headache (3%), insomnia…"
+   },
+   {
+    "topic": "how_it_works",
+    "text": "The prime action of beta-adrenergic drugs is to stimulate adenyl cyclase, the enzyme which catalyzes the formation of cyclic-3’,5’-adenosine monophosphate (cyclic AMP) from adenosine triphosphate (ATP).",
+    "section": "mechanism_of_action",
+    "quote": "The prime action of beta-adrenergic drugs is to stimulate adenyl cyclase, the enzyme which catalyzes the formation of cyclic-3’,5’-adenosine monophosphate (cyclic AMP) from adenosine triphosphate (ATP)."
+   }
+  ],
+  "generatedBy": "template"
+ }
+}

@@ -23,7 +23,11 @@ OFFLINE=1 python -m pytest patients/tests/test_patients.py::test_add_patient -q 
 python -m patients.seed                        # reset patient tables to seed_patients.json (keeps DDInter)
 python -m patients.fhir_import <folder|files>  # import Synthea FHIR R4 bundles
 python -m safety.scripts.load_ddinter          # load DDInter CSVs (Aarya's; see backend/safety/README.md)
+python -m drugs.scripts.prewarm_info           # cache FDA labels + summaries for demo drugs (needs internet)
+python -m drugs.scripts.prewarm_info --refresh # re-summarize cached labels, e.g. after setting ANTHROPIC_API_KEY
 ```
+
+`backend/conftest.py` points every test at empty temp databases before anything imports `safety.engine` or `safety.rx`, which open their SQLite files at import time. It also sets `OFFLINE=1` and `DRUG_INFO_LLM=0`, so tests never call openFDA or Claude.
 
 Frontend (run from `frontend/`): `npm run dev`, `npm run build`, `npm run lint`, `node --test tests/patients.test.mjs` (Node 22.15+). `package-lock.json` is out of sync with `package.json`, so `npm ci` fails; use `npm install`. Set `VITE_API_URL=http://localhost:8000` (e.g. in gitignored `frontend/.env.local`) to use the backend; without it the frontend uses `src/mocks/patients.ts`.
 
@@ -38,6 +42,14 @@ Frontend (run from `frontend/`): `npm run dev`, `npm run build`, `npm run lint`,
 - **`criticalAlerts`** are computed on read by `patients/critical.py`, never stored. The directory `indicator` is the top alert.
 - **`/check` loads patients via `repo.get_patient_for_check`**, logs results to `interaction_results` and returns the row id as `check_id`. Patient id `demo` still loads `safety/fixtures/demo_patient.json` (its `check_id` is null). The DB demo patient is `SYN-1000`.
 - **Prescribing runs the safety check on the server** (`POST /patients/{id}/medications`), so it can't be skipped. A primary (major/contraindicated) alert without an `overrideReason` gets a 409 with the check. The new `medications` row stores `check_id`, `override_reason`, `prescribed_by` and `prescribed_at`. Every attempt is logged, including refused ones. Prescribing for a patient whose med list was `null` changes it to "incomplete", with a critical alert saying so.
+- **Drug comparison (`backend/drugs/`)** has two parts that are kept apart on purpose:
+  - **Risk profile** (`compare.py`): deterministic and local. It runs `safety.engine.check` and `engine.context_notes` for each drug, adds "allergy status unknown" and FDA boxed-warning reasons, and logs every check. A boxed warning never changes `riskLevel`.
+  - **Drug info card** (`info.py`, `label.py`, `summarize.py`): the FDA label from openFDA, summarized by Claude (`claude-opus-5-5`, effort `low`, JSON schema, server-side refusal fallback).
+- **Rules for the drug info card:**
+  - Claude only summarizes the label text it is given, and only the label text and drug name are sent. Patient data never goes to Claude or openFDA.
+  - Every statement carries a verbatim quote. `summarize.quote_ok` checks each quote against its cited section and drops failures.
+  - Any failure (no key, offline, refusal, bad JSON) falls back to `template_summary`, which uses sentences copied from the label.
+  - Summaries are cached per ingredient in the committed `drugs/data/info_cache/*.json`. With `OFFLINE=1` only the cache is used. Bump `summarize.PROMPT_VERSION` when the prompt or schema changes.
 - **Schema changes to existing tables** must be added to `db.ADDED_COLUMNS` as well as `schema.sql`. `ensure_schema` then adds the missing columns on startup. Never tell anyone to delete `medprofile.db` to pick up a schema change: it also holds the DDInter data.
 
 ## Endpoints
@@ -48,6 +60,10 @@ Frontend (run from `frontend/`): `npm run dev`, `npm run build`, `npm run lint`,
 - `POST /patients/{id}/check`: Aarya's engine, plus `check_id`.
 - `POST /patients/{id}/medications`: prescribe. Body `{ name, dose?, frequency?, rxcui?, prescribedBy?, overrideReason? }`, returns `{ medication, check }`.
 - `PATCH /patients/{id}/medications/{medId}`: body `{ status: "active" | "stopped" }`.
+- `POST /patients/{id}/compare`: body `{ drugs: [1-4 names] }`. Returns a per-drug `riskLevel` (`contraindicated` | `major` | `moderate` | `minor` | `none-found`), `reasons`, `counts`, `checkId`, plus `suggestedAlternatives`.
+- `GET /drugs/{name}/info`: FDA label summary and cited facts. Doesn't depend on the patient.
+
+The frontend's `src/components/DrugComparison.tsx` (on the Medication Safety page) uses these through `src/services/drugApi.ts`, and prescribes through the endpoint above.
 
 ## Non-negotiable design rules
 

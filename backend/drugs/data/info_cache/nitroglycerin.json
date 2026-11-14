@@ -1,0 +1,58 @@
+{
+ "ingredient": "nitroglycerin",
+ "promptVersion": 1,
+ "label": {
+  "ingredient": "nitroglycerin",
+  "setId": "698a46a6-29b5-4763-9442-ec9ad5eea86b",
+  "effectiveTime": "20260929",
+  "url": "https://dailymed.nlm.nih.gov/dailymed/lookup.cfm?setid=698a46a6-29b5-4763-9442-ec9ad5eea86b",
+  "brandNames": [
+   "Nitroglycerin"
+  ],
+  "drugClass": [
+   "Nitrate Vasodilator"
+  ],
+  "productType": "HUMAN PRESCRIPTION DRUG",
+  "sections": {
+   "indications_and_usage": "Nitroglycerin Lingual Spray is indicated for acute relief of an attack or prophylaxis of angina pectoris due to coronary artery disease. Nitroglycerin Lingual Spray is a nitrate vasodilator indicated for acute relief of an attack or prophylaxis of angina pectoris due to coronary artery disease ( 1 ).",
+   "contraindications": "Use of phosphodiesterase type 5 (PDE-5) Inhibitors, such as avanafil, sildenafil, tadalafil, or vardenafil, or soluble guanylate cyclase (sGC) stimulator (riociguat). ( 4.1 , 7.1 ) Severe anemia. ( 4.2 ) Increased intracranial pressure. ( 4.3 ) Hypersensitivity to Nitroglycerin Lingual Spray or to other nitrates or nitrites or any excipient. ( 4.4 ) 4.1 P DE-5 - Inhibitors and sGC- Stimulators Do not use Nitroglycerin Lingual Spray in patients who are taking PDE-5-Inhibitors, such as avanafil, sildenafil, tadalafil, or vardenafil. Concomitant use can cause severe hypotension, syncope, or myocardial ischemia [see Drug Interactions (7.1) ]. Do not use Nitroglycerin Lingual Spray in patients who are taking soluble guanylate cyclase (sGC) stimulators, such as riociguat. Concomitant use can cause hypotension. 4.2 Severe Anemia Nitroglycerin Lingual Spray is contraindicated in patients with severe anemia (large doses of nitroglycerin may cause oxidation of hemoglobin to methemoglobin and could exacerbate anemia). 4.3 Increased Intracranial Pressure Nitroglycerin Lingual Spray may precipitate or aggravate increased intracranial pressure and thus should not be used in patients with possible increased intracranial pressure (e. g. cerebral hemorrhage or traumatic brain injury). 4.4 Hypersensitivity Nitroglycerin Lingual Spray is contraindicated in patients who are allergic to nitroglycerin, other nitrates or nitrites or any excipient. 4. 5 Circulatory Failure and Shock Nitroglycerin Lingual Spray is contraindicated in patients with acute circulatory failure or shock.",
+   "warnings_and_cautions": "Tolerance: Excessive use may lead to tolerance. ( 5.1 ) Hypotension: Severe hypotension may occur. ( 5.2 ) 5.1 Tolerance Excessive use may lead to the development of tolerance. Only the smallest number of doses required for effective relief of the acute angina attack should be used [see Dosage and Administration (2.1) ]. 5. 2 Hypotension Severe hypotension, particularly with upright posture, may occur even with small doses of nitroglycerin particularly in patients with constrictive pericarditis, aortic or mitral stenosis, patients who may be volume-depleted, or are already hypotensive. Hypotension induced by nitroglycerin may be accompanied by paradoxical bradycardia and increased angina pectoris. Symptoms of severe hypotension (nausea, vomiting, weakness, pallor, perspiration and collapse/syncope) may occur even with therapeutic doses. 5.3 Hypertrophic Obstructive Cardiomyopathy Nitrate therapy may aggravate the angina caused by hypertrophic obstructive cardiomyopathy. 5.4 Headache Nitroglycerin produces dose-related headaches, especially at the start of nitroglycerin therapy, which may be severe and persistent but usually subside with continued use.",
+   "adverse_reactions": "Most common adverse reactions occurring at a frequency greater than 2 % are headache, dizzinesss and paresthesia ( 6 ). To report SUSPECTED ADVERSE REACTIONS, contact Prasco Laboratories at 1-866-525-0688 or FDA at 1-800-FDA-1088 or www.fda.gov/medwatch. 6.1 Clinical Trials Experience Because clinical trials are conducted under widely varying conditions, adverse reaction rates observed in the clinical trials of a drug cannot be directly compared to rates in the clinical trials of another drug and may not reflect the rates observed in clinical practice. Adverse reactions occurring at a frequency greater than 2 % and greater than placebo included: headache, dizziness, and paresthesia. 6.2 Postmarketing Experience The following adverse reactions have been identified during post-approval use of Nitroglycerin Lingual Spray and other nitroglycerin drugs. Because these reactions are reported voluntarily from a population of uncertain size, it is not always possible to estimate their frequency reliably or establish a causal relationship to drug exposure. Neurologic: weakness, drowsiness Dermatologic: cutaneous vasodilation, flushing, drug rash, exfoliative dermatitis Gastrointestinal: nausea, vomiting Respiratory: transient hypoxemia Cardiovascular: tachycardia",
+   "mechanism_of_action": "12.1 Mechanism of Action Nitroglycerin forms free radical nitric oxide (NO), which activates guanylate cyclase, resulting in an increase of guanosine 3',5'-monophosphate (cyclic GMP) in smooth muscle and other tissues. This eventually leads to dephosphorylation of myosin light chains, which regulates the contractile state in smooth muscle and results in vasodilatation."
+  }
+ },
+ "summary": {
+  "summary": {
+   "text": "Nitroglycerin Lingual Spray is indicated for acute relief of an attack or prophylaxis of angina pectoris due to coronary artery disease.",
+   "section": "indications_and_usage",
+   "quote": "Nitroglycerin Lingual Spray is indicated for acute relief of an attack or prophylaxis of angina pectoris due to coronary artery disease."
+  },
+  "facts": [
+   {
+    "topic": "contraindications",
+    "text": "Use of phosphodiesterase type 5 (PDE-5) Inhibitors, such as avanafil, sildenafil, tadalafil, or vardenafil, or soluble guanylate cyclase (sGC) stimulator (riociguat). ( 4.1 , 7.1 ) Severe anemia. ( 4.2 ) Increased intracranial pressure. ( 4.3 ) Hypersensitivity to Nitroglycerin Lingual Spray or to…",
+    "section": "contraindications",
+    "quote": "Use of phosphodiesterase type 5 (PDE-5) Inhibitors, such as avanafil, sildenafil, tadalafil, or vardenafil, or soluble guanylate cyclase (sGC) stimulator (riociguat). ( 4.1 , 7.1 ) Severe anemia. ( 4.2 ) Increased intracranial pressure. ( 4.3 ) Hypersensitivity to Nitroglycerin Lingual Spray or to…"
+   },
+   {
+    "topic": "warnings",
+    "text": "Tolerance: Excessive use may lead to tolerance. ( 5.1 ) Hypotension: Severe hypotension may occur. ( 5.2 ) 5.1 Tolerance Excessive use may lead to the development of tolerance.",
+    "section": "warnings_and_cautions",
+    "quote": "Tolerance: Excessive use may lead to tolerance. ( 5.1 ) Hypotension: Severe hypotension may occur. ( 5.2 ) 5.1 Tolerance Excessive use may lead to the development of tolerance."
+   },
+   {
+    "topic": "common_side_effects",
+    "text": "Most common adverse reactions occurring at a frequency greater than 2 % are headache, dizzinesss and paresthesia ( 6 ).",
+    "section": "adverse_reactions",
+    "quote": "Most common adverse reactions occurring at a frequency greater than 2 % are headache, dizzinesss and paresthesia ( 6 )."
+   },
+   {
+    "topic": "how_it_works",
+    "text": "12.1 Mechanism of Action Nitroglycerin forms free radical nitric oxide (NO), which activates guanylate cyclase, resulting in an increase of guanosine 3',5'-monophosphate (cyclic GMP) in smooth muscle and other tissues.",
+    "section": "mechanism_of_action",
+    "quote": "12.1 Mechanism of Action Nitroglycerin forms free radical nitric oxide (NO), which activates guanylate cyclase, resulting in an increase of guanosine 3',5'-monophosphate (cyclic GMP) in smooth muscle and other tissues."
+   }
+  ],
+  "generatedBy": "template"
+ }
+}
