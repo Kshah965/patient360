@@ -59,11 +59,11 @@ def lookup_pair(a, b):
         sev = r[0] if r else c["severity"]
     return {
         "severity": sev,
-        "explanation": (c or {}).get("explanation") or f"DDInter 2.0 lists this combination as {sev}.",
+        "explanation": (c or {}).get("explanation") or f"DDInter lists this combination as {sev}.",
         "management": (c or {}).get("management", "See source."),
-        "source": "DDInter 2.0 (CC BY-NC-SA 4.0)" if r else c["source"],
+        "source": "DDInter (CC BY-NC-SA 4.0)" if r else c["source"],
         "source_id": r[1] if r else None,
-        "verified": bool(r) or c.get("verified", False),
+        "verified": c.get("verified", False) if c else bool(r),
     }
 
 

@@ -6,3 +6,4 @@ __pycache__/
 node_modules/
 # raw DDInter downloads stay out of git (download them locally, see backend/safety/README.md)
 backend/safety/data/ddinter/*.csv
+backend/medprofile.db

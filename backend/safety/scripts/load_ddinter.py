@@ -18,8 +18,12 @@ HERE = pathlib.Path(__file__).parents[1]
 DB_PATH = os.getenv("MEDPROFILE_DB", str(HERE.parent / "medprofile.db"))
 
 
+RENAME = {"acetylsalicylic acid": "aspirin"}
+
+
 def key(n):
-    return SALTS.sub("", str(n).lower().strip())
+    k = SALTS.sub("", str(n).lower().strip())
+    return RENAME.get(k, k)
 
 
 df = pd.concat(pd.read_csv(f) for f in glob.glob(str(HERE / "data" / "ddinter" / "*.csv")))

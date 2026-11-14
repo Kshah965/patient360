@@ -1,14 +1,15 @@
 [
-  {"a":"warfarin","b":"ibuprofen","severity":"major","explanation":"TODO from source: NSAIDs can increase bleeding risk with warfarin.","management":"TODO from source","source":"TODO: DDInter 2.0 or DailyMed label","verified":false},
-  {"a":"warfarin","b":"aspirin","severity":"major","explanation":"TODO from source: additive bleeding risk.","management":"TODO from source","source":"TODO","verified":false},
-  {"a":"warfarin","b":"sertraline","severity":"moderate","explanation":"TODO from source: SSRIs may increase bleeding risk with anticoagulants.","management":"TODO from source","source":"TODO","verified":false},
-  {"a":"warfarin","b":"acetaminophen","severity":"minor","explanation":"TODO from source: regular higher-dose use may raise INR.","management":"TODO from source","source":"TODO","verified":false},
-  {"a":"ibuprofen","b":"aspirin","severity":"moderate","explanation":"TODO from source: may interfere with low-dose aspirin's antiplatelet effect.","management":"TODO from source","source":"TODO","verified":false},
-  {"a":"ibuprofen","b":"sertraline","severity":"moderate","explanation":"TODO from source: increased GI bleeding risk.","management":"TODO from source","source":"TODO","verified":false},
-  {"a":"ibuprofen","b":"lisinopril","severity":"moderate","explanation":"TODO from source: may reduce blood-pressure effect and raise kidney risk.","management":"TODO from source","source":"TODO","verified":false},
-  {"a":"simvastatin","b":"clarithromycin","severity":"contraindicated","explanation":"TODO from source: raises simvastatin levels; risk of muscle damage.","management":"TODO from source","source":"TODO","verified":false},
-  {"a":"sertraline","b":"tramadol","severity":"major","explanation":"TODO from source: serotonin syndrome and seizure risk.","management":"TODO from source","source":"TODO","verified":false},
-  {"a":"sildenafil","b":"nitroglycerin","severity":"contraindicated","explanation":"TODO from source: severe drop in blood pressure.","management":"TODO from source","source":"TODO","verified":false},
-  {"a":"lisinopril","b":"spironolactone","severity":"moderate","explanation":"TODO from source: high potassium risk.","management":"TODO from source","source":"TODO","verified":false},
-  {"a":"clopidogrel","b":"omeprazole","severity":"moderate","explanation":"TODO from source: may reduce clopidogrel activation.","management":"TODO from source","source":"TODO","verified":false}
+  {"a":"warfarin","b":"ibuprofen","severity":"major","explanation":"TODO from source","management":"TODO from source","source":"TODO","verified":false},
+  {"a":"warfarin","b":"aspirin","severity":"major","explanation":"TODO from source","management":"TODO from source","source":"TODO","verified":false},
+  {"a":"warfarin","b":"sertraline","severity":"moderate","explanation":"TODO from source","management":"TODO from source","source":"TODO","verified":false},
+  {"a":"warfarin","b":"acetaminophen","severity":"moderate","explanation":"TODO from source","management":"TODO from source","source":"TODO","verified":false},
+  {"a":"ibuprofen","b":"aspirin","severity":"major","explanation":"TODO from source","management":"TODO from source","source":"TODO","verified":false},
+  {"a":"ibuprofen","b":"sertraline","severity":"moderate","explanation":"TODO from source","management":"TODO from source","source":"TODO","verified":false},
+  {"a":"ibuprofen","b":"lisinopril","severity":"moderate","explanation":"TODO from source","management":"TODO from source","source":"TODO","verified":false},
+  {"a":"ibuprofen","b":"omeprazole","severity":"minor","explanation":"TODO from source","management":"TODO from source","source":"TODO","verified":false},
+  {"a":"simvastatin","b":"clarithromycin","severity":"major","explanation":"TODO from source","management":"TODO from source","source":"TODO","verified":false},
+  {"a":"clopidogrel","b":"omeprazole","severity":"major","explanation":"TODO from source","management":"TODO from source","source":"TODO","verified":false},
+  {"a":"sertraline","b":"tramadol","severity":"major","explanation":"TODO from source","management":"TODO from source","source":"TODO","verified":false},
+  {"a":"sildenafil","b":"nitroglycerin","severity":"contraindicated","explanation":"TODO from source","management":"TODO from source","source":"TODO","verified":false},
+  {"a":"lisinopril","b":"spironolactone","severity":"moderate","explanation":"TODO from source","management":"TODO from source","source":"TODO","verified":false}
 ]
