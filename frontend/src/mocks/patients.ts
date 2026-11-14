@@ -1,0 +1,54 @@
+import type { Patient } from '../types/clinical'
+
+// Entirely fictional fixtures. No information is sourced from real patient records.
+export const patients: Patient[] = [
+  {
+    id: 'SYN-1001', name: 'Mara Ellison', dateOfBirth: '1984-03-18', sex: 'Female',
+    allergies: { status: 'documented', items: [{ substance: 'Amoxicillin', reaction: 'Hives and facial swelling' }] },
+    medications: [{ name: 'Albuterol inhaler', dose: '90 mcg/puff, 2 puffs', frequency: 'Every 4–6 hours as needed' }],
+    conditions: ['Asthma'], history: ['Asthma diagnosed in childhood', 'No documented surgical history'],
+    encounters: [{ date: '2026-10-22', reason: 'Wheezing', outcome: 'Discharged after inhaled therapy' }],
+    vitals: { recordedAt: '2026-10-22', bloodPressure: '118/76 mmHg', heartRate: 88, temperatureC: 36.8, oxygenSaturation: 97 },
+  },
+  {
+    id: 'SYN-1002', name: 'Owen Calder', dateOfBirth: '1955-08-09', sex: 'Male',
+    allergies: { status: 'none-known', items: [] },
+    medications: [{ name: 'Warfarin', dose: '3 mg', frequency: 'Daily' }, { name: 'Metoprolol tartrate', dose: '25 mg', frequency: 'Twice daily' }, { name: 'Lisinopril', dose: '10 mg', frequency: 'Daily' }, { name: 'Atorvastatin', dose: '20 mg', frequency: 'Nightly' }],
+    conditions: ['Atrial fibrillation', 'Hypertension', 'Hyperlipidemia'], history: ['Atrial fibrillation diagnosed in 2020', 'Appendectomy in 1981'],
+    encounters: [{ date: '2026-11-02', reason: 'Anticoagulation follow-up', outcome: 'Continued current regimen' }],
+    vitals: { recordedAt: '2026-11-02', bloodPressure: '132/82 mmHg', heartRate: 76, temperatureC: 36.6, oxygenSaturation: 98 },
+  },
+  {
+    id: 'SYN-1003', name: 'Leila Marlow', dateOfBirth: '1967-12-04', sex: 'Female',
+    allergies: { status: 'documented', items: [{ substance: 'Trimethoprim-sulfamethoxazole', reaction: 'Rash' }] },
+    medications: [{ name: 'Insulin glargine', dose: '18 units', frequency: 'Nightly' }, { name: 'Losartan', dose: '50 mg', frequency: 'Daily' }],
+    conditions: ['Type 2 diabetes mellitus', 'Chronic kidney disease, stage 3', 'Hypertension'], history: ['Chronic kidney disease documented in 2023', 'No recent renal laboratory results available'],
+    encounters: [{ date: '2026-10-15', reason: 'Diabetes follow-up', outcome: 'Home glucose monitoring reviewed' }], vitals: null,
+  },
+  {
+    id: 'SYN-1004', name: 'Theo Wren', dateOfBirth: '1993-06-21', sex: null,
+    allergies: { status: 'unknown', items: [] }, medications: null, conditions: null, history: null,
+    encounters: [{ date: '2026-11-10', reason: 'Initial registration', outcome: 'Outside records not yet available' }], vitals: null,
+  },
+  {
+    id: 'SYN-1005', name: 'Nadia Vale', dateOfBirth: '1998-02-14', sex: 'Female',
+    allergies: { status: 'none-known', items: [] }, medications: [], conditions: [],
+    history: ['No prior operations documented'], encounters: [{ date: '2026-09-19', reason: 'Ankle injury', outcome: 'Discharged with supportive care' }],
+    vitals: { recordedAt: '2026-09-19', bloodPressure: '110/70 mmHg', heartRate: 72, temperatureC: 36.7, oxygenSaturation: 99 },
+  },
+  {
+    id: 'SYN-1006', name: 'Felix Rowan', dateOfBirth: '1976-11-25', sex: 'Male',
+    allergies: { status: 'documented', items: [{ substance: 'Ibuprofen', reaction: 'Wheezing' }, { substance: 'Latex', reaction: 'Contact rash' }] },
+    medications: [{ name: 'Sertraline', dose: '50 mg', frequency: 'Daily' }, { name: 'Sumatriptan', dose: '50 mg', frequency: 'As needed for migraine' }],
+    conditions: ['Migraine', 'Depression'], history: ['Recurrent migraines since 2015'],
+    encounters: [{ date: '2026-10-30', reason: 'Migraine', outcome: 'Symptoms improved; outpatient follow-up arranged' }], vitals: null,
+  },
+  {
+    id: 'SYN-1007', name: 'Iris Fenwick', dateOfBirth: '1948-04-06', sex: 'Female',
+    allergies: { status: 'unknown', items: [] },
+    medications: [{ name: 'Furosemide', dose: '20 mg', frequency: 'Daily' }, { name: 'Carvedilol', dose: '6.25 mg', frequency: 'Twice daily' }],
+    conditions: ['Heart failure', 'Osteoarthritis'], history: ['Hospitalization for fluid overload in 2025', 'Medication reconciliation incomplete'],
+    encounters: [{ date: '2026-11-05', reason: 'Lower extremity edema', outcome: 'Outpatient reassessment requested' }],
+    vitals: { recordedAt: '2026-11-05', bloodPressure: '126/74 mmHg', heartRate: 80, temperatureC: 36.5, oxygenSaturation: 96 },
+  },
+]
