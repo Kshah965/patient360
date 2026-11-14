@@ -1,6 +1,38 @@
 {
-  "ibuprofen": [{"drug":"acetaminophen","indication":"pain","rationale":"Pain relief without NSAID bleeding risk.","monitoring":"TODO from source (e.g. INR with regular use)","source":"TODO"}],
-  "naproxen": [{"drug":"acetaminophen","indication":"pain","rationale":"Pain relief without NSAID bleeding risk.","monitoring":"TODO from source","source":"TODO"}],
-  "amoxicillin": [{"drug":"azithromycin","indication":"infection (depends on type)","rationale":"Non-penicillin option; clinician chooses based on the infection.","monitoring":"","source":"TODO"}],
-  "clarithromycin": [{"drug":"azithromycin","indication":"infection (depends on type)","rationale":"Less effect on simvastatin metabolism.","monitoring":"","source":"TODO"}]
+ "ibuprofen": [
+  {
+   "drug": "acetaminophen",
+   "indication": "pain",
+   "rationale": "Pain relief without NSAID bleeding risk; considered the pain reliever of choice for patients on warfarin, and does not interfere with low-dose aspirin.",
+   "monitoring": "With regular high doses (over about 1.3 g/day for more than a week), monitor INR more closely.",
+   "source": "DDInter 2.0 Interaction Checker: acetaminophen + warfarin; acetylsalicylic acid + ibuprofen"
+  }
+ ],
+ "naproxen": [
+  {
+   "drug": "acetaminophen",
+   "indication": "pain",
+   "rationale": "Pain relief without NSAID bleeding risk; considered the pain reliever of choice for patients on warfarin, and does not interfere with low-dose aspirin.",
+   "monitoring": "With regular high doses (over about 1.3 g/day for more than a week), monitor INR more closely.",
+   "source": "DDInter 2.0 Interaction Checker: acetaminophen + warfarin; acetylsalicylic acid + ibuprofen"
+  }
+ ],
+ "amoxicillin": [
+  {
+   "drug": "azithromycin",
+   "indication": "infection (depends on type)",
+   "rationale": "Non-penicillin option; clinician chooses based on the infection.",
+   "monitoring": "",
+   "source": "TODO"
+  }
+ ],
+ "clarithromycin": [
+  {
+   "drug": "azithromycin",
+   "indication": "infection (depends on type)",
+   "rationale": "Less effect on simvastatin metabolism.",
+   "monitoring": "",
+   "source": "TODO"
+  }
+ ]
 }
