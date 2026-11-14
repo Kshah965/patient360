@@ -4,7 +4,7 @@ Every way of adding a patient (seed file, POST /patients, Synthea import)
 goes through create_patient, so the rules live in one place.
 """
 import json
-from datetime import date
+from datetime import date, datetime, timezone
 
 from .critical import critical_alerts
 from .models import ConditionIn, HistoryIn, PatientIn
@@ -100,20 +100,72 @@ def create_patient(conn, record, source="api"):
 
 
 def log_check(conn, patient_id, result):
-    """Store one /check result. Silently skips patients not in the table (e.g. the 'demo' fixture)."""
+    """Store one safety-check result and return its id.
+
+    Returns None for patients not in the table (e.g. the 'demo' fixture).
+    """
     if not conn.execute("SELECT 1 FROM patients WHERE id = ?", (patient_id,)).fetchone():
-        return
-    conn.execute(
+        return None
+    cur = conn.execute(
         "INSERT INTO interaction_results (patient_id, drug, total_found, shown, alerts_json)"
         " VALUES (?, ?, ?, ?, ?)",
         (patient_id, result["drug"], result["total_found"], result["shown"], json.dumps(result["alerts"])),
     )
+    return cur.lastrowid
+
+
+def add_medication(conn, patient_id, rx, check_id=None):
+    """Insert a prescribed medication (rx: models.PrescribeIn). Returns the new medication id.
+
+    If the patient's medication list was unavailable, it becomes 'incomplete': the
+    new drug is shown, and a critical alert says outside records are still missing.
+    """
+    now = datetime.now(timezone.utc)
+    reason = (rx.overrideReason or "").strip() or None
+    cur = conn.execute(
+        "INSERT INTO medications (patient_id, name, rxcui, dose, frequency, status, started_on,"
+        " prescribed_by, prescribed_at, check_id, override_reason)"
+        " VALUES (?, ?, ?, ?, ?, 'active', ?, ?, ?, ?, ?)",
+        (patient_id, rx.name.strip(), rx.rxcui, rx.dose, rx.frequency, now.date().isoformat(),
+         rx.prescribedBy, now.isoformat(timespec="seconds"), check_id, reason),
+    )
+    row = conn.execute("SELECT unavailable FROM patients WHERE id = ?", (patient_id,)).fetchone()
+    unavailable = json.loads(row["unavailable"])
+    if "medications" in unavailable:
+        unavailable[unavailable.index("medications")] = "medications-incomplete"
+        conn.execute("UPDATE patients SET unavailable = ? WHERE id = ?", (json.dumps(unavailable), patient_id))
+    return cur.lastrowid
+
+
+def set_medication_status(conn, patient_id, medication_id, status):
+    """Stop or restart a medication. Returns the updated record, or None if not found for this patient."""
+    stopped_at = datetime.now(timezone.utc).isoformat(timespec="seconds") if status == "stopped" else None
+    cur = conn.execute(
+        "UPDATE medications SET status = ?, stopped_at = ? WHERE id = ? AND patient_id = ?",
+        (status, stopped_at, medication_id, patient_id),
+    )
+    return get_medication(conn, patient_id, medication_id) if cur.rowcount else None
 
 
 # ---------- reads ----------
 
 def _rows(conn, sql, pid):
     return conn.execute(sql, (pid,)).fetchall()
+
+
+def get_medication(conn, patient_id, medication_id):
+    """Full stored medication row in MedicationRecord shape, or None."""
+    m = conn.execute("SELECT * FROM medications WHERE id = ? AND patient_id = ?",
+                     (medication_id, patient_id)).fetchone()
+    if not m:
+        return None
+    return {
+        "id": m["id"], "patientId": m["patient_id"], "name": m["name"], "rxcui": m["rxcui"],
+        "dose": m["dose"], "frequency": m["frequency"], "status": m["status"],
+        "startedOn": m["started_on"], "prescribedBy": m["prescribed_by"],
+        "prescribedAt": m["prescribed_at"], "checkId": m["check_id"],
+        "overrideReason": m["override_reason"], "stoppedAt": m["stopped_at"],
+    }
 
 
 def _vitals(vital_rows):
@@ -161,7 +213,8 @@ def get_patient(conn, pid):
                       for a in allergies],
         },
         "medications": section("medications", [
-            {"name": m["name"], "dose": m["dose"] or NOT_RECORDED, "frequency": m["frequency"] or NOT_RECORDED}
+            {"id": m["id"], "name": m["name"], "dose": m["dose"] or NOT_RECORDED,
+             "frequency": m["frequency"] or NOT_RECORDED}
             for m in meds]),
         "conditions": section("conditions", [c["name"] for c in conditions]),
         "history": section("history", [h["description"] for h in history]),

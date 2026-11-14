@@ -14,7 +14,7 @@ import re
 import sys
 
 from . import repo
-from .db import SCHEMA, session
+from .db import ensure_schema, session
 
 RXNORM = "http://www.nlm.nih.gov/research/umls/rxnorm"
 
@@ -226,7 +226,7 @@ if __name__ == "__main__":
     if len(sys.argv) < 2:
         sys.exit(__doc__)
     with session() as conn:
-        conn.executescript(SCHEMA.read_text())
+        ensure_schema(conn)
         for f in _files(sys.argv[1:]):
             pid = import_bundle(conn, json.loads(f.read_text()))
             print(f"{f.name}: {'imported as ' + pid if pid else 'skipped'}")

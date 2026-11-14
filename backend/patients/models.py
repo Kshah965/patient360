@@ -90,6 +90,20 @@ class PatientIn(BaseModel):
     fhirId: Optional[str] = None
 
 
+class PrescribeIn(BaseModel):
+    """POST /patients/{id}/medications. The server runs the safety check itself."""
+    name: str = Field(min_length=1)
+    dose: Optional[str] = None
+    frequency: Optional[str] = None
+    rxcui: Optional[str] = None
+    prescribedBy: Optional[str] = None
+    overrideReason: Optional[str] = None  # required when the check finds a serious alert
+
+
+class MedicationStatusIn(BaseModel):
+    status: Literal["active", "stopped"]
+
+
 # ---------- output ----------
 
 class Allergy(BaseModel):
@@ -103,9 +117,32 @@ class Allergies(BaseModel):
 
 
 class Medication(BaseModel):
+    id: int  # extra to clinical.ts; needed to stop a medication
     name: str
     dose: str
     frequency: str
+
+
+class MedicationRecord(BaseModel):
+    """Full stored medication row, returned by the prescribe and status endpoints."""
+    id: int
+    patientId: str
+    name: str
+    rxcui: Optional[str]
+    dose: Optional[str]
+    frequency: Optional[str]
+    status: Literal["active", "stopped"]
+    startedOn: Optional[str]
+    prescribedBy: Optional[str]
+    prescribedAt: Optional[str]
+    checkId: Optional[int]
+    overrideReason: Optional[str]
+    stoppedAt: Optional[str]
+
+
+class PrescribeResult(BaseModel):
+    medication: MedicationRecord
+    check: dict  # the safety engine's response for this drug, including check_id
 
 
 class Encounter(BaseModel):

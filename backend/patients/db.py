@@ -15,8 +15,19 @@ SCHEMA = HERE / "schema.sql"
 SEED_FILE = HERE / "data" / "seed_patients.json"
 DEFAULT_DB = HERE.parent / "medprofile.db"
 
-PATIENT_TABLES = ("interaction_results", "observations", "encounters", "history",
-                  "conditions", "allergies", "medications", "patients")
+PATIENT_TABLES = ("medications", "interaction_results", "observations", "encounters",
+                  "history", "conditions", "allergies", "patients")
+
+# Columns added to existing tables after the first release: (table, column, type).
+# ensure_schema adds any that are missing, so nobody has to delete medprofile.db
+# (which would also delete the DDInter data).
+ADDED_COLUMNS = [
+    ("medications", "prescribed_by", "TEXT"),
+    ("medications", "prescribed_at", "TEXT"),
+    ("medications", "check_id", "INTEGER REFERENCES interaction_results(id)"),
+    ("medications", "override_reason", "TEXT"),
+    ("medications", "stopped_at", "TEXT"),
+]
 
 
 def db_path():
@@ -66,9 +77,18 @@ def load_seed(conn, reset=False):
     return len(records)
 
 
+def ensure_schema(conn):
+    """Create missing tables, then add columns that older databases lack."""
+    conn.executescript(SCHEMA.read_text())
+    for table, column, col_type in ADDED_COLUMNS:
+        existing = {row[1] for row in conn.execute(f"PRAGMA table_info({table})")}
+        if column not in existing:
+            conn.execute(f"ALTER TABLE {table} ADD COLUMN {column} {col_type}")
+
+
 def init_db():
-    """Create tables, and seed them when there are no patients yet."""
+    """Create or update tables, and seed them when there are no patients yet."""
     with session() as conn:
-        conn.executescript(SCHEMA.read_text())
+        ensure_schema(conn)
         if conn.execute("SELECT COUNT(*) FROM patients").fetchone()[0] == 0:
             load_seed(conn)

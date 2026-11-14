@@ -14,6 +14,8 @@ DRUG_GROUPS = [
 
 UNAVAILABLE_LABELS = {
     "medications": "Medication list unavailable",
+    # Set when a drug is prescribed for a patient whose outside medication list was unavailable.
+    "medications-incomplete": "Medication list incomplete: outside records unavailable",
     "conditions": "Condition list unavailable",
 }
 
