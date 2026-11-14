@@ -8,6 +8,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from drugs.routes import router as drugs_router
+from explanations.routes import router as explanations_router
 from patients.db import init_db
 from patients.routes import router as patients_router
 from safety.routes import router as safety_router
@@ -24,3 +25,4 @@ app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_methods=["*"], all
 app.include_router(patients_router)
 app.include_router(safety_router)
 app.include_router(drugs_router)
+app.include_router(explanations_router)

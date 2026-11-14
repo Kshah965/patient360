@@ -35,13 +35,13 @@ def risk_profile(conn, patient, query):
         "source": a["source"],
     } for a in alerts]
 
-    if patient.get("allergy_status") == "unknown":
-        reasons.append({"kind": "allergy-unknown", "severity": None, "priority": "primary",
-                        "text": "Allergy status unknown: allergy check not possible.",
-                        "management": "Confirm allergies with the patient or outside records before prescribing.",
+    # Parts of the check that could not run (unknown allergies, missing or incomplete med list).
+    for notice in result.get("notices", []):
+        reasons.append({"kind": "notice", "severity": None, "priority": "primary", "text": notice,
+                        "management": "Confirm with the patient or outside records before prescribing.",
                         "source": "Patient record"})
 
-    active = [m for m in patient["medications"] if m.get("status", "active") == "active"]
+    active = [m for m in (patient.get("medications") or []) if m.get("status", "active") == "active"]
     for note in engine.context_notes(drug, patient, [engine.med_ingredient(m) for m in active]):
         reasons.append({"kind": "context", "severity": None, "priority": "primary", "text": note,
                         "management": None, "source": "Patient record (prototype heuristic)"})
@@ -59,6 +59,7 @@ def risk_profile(conn, patient, query):
         "drug": drug,
         "riskLevel": _risk_level(alerts),
         "reasons": reasons,
+        "notices": result.get("notices", []),
         "counts": {lvl: sum(a["severity"] == lvl for a in alerts) for lvl in LEVELS},
         "shown": result["shown"],
         "totalFound": result["total_found"],

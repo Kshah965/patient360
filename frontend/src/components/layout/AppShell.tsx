@@ -1,3 +1,5 @@
+import { usePatientData } from '@/hooks/usePatientData'
+import { apiConfig } from '@/services/apiConfig'
 import type { ReactNode } from 'react'
 import { HeartPulse, LayoutDashboard, ShieldCheck, Users } from 'lucide-react'
 import { NavLink } from 'react-router-dom'
@@ -10,6 +12,7 @@ const navigation = [
 ]
 
 export function AppShell({ children, title }: { children: ReactNode; title: string }) {
+  const { mode, setMode } = usePatientData()
   return (
     <div className="min-h-screen lg:grid lg:grid-cols-[216px_minmax(0,1fr)]">
       <a href="#main-content" className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:bg-white focus:p-4">Skip to content</a>
@@ -28,11 +31,11 @@ export function AppShell({ children, title }: { children: ReactNode; title: stri
       </aside>
       <div className="min-w-0">
         <header className="flex min-h-16 flex-wrap items-center justify-between gap-3 border-b bg-white px-5 py-3 lg:px-7">
-          <span className="text-sm font-medium">{title}</span>
+          <div className="flex flex-wrap items-center gap-3"><span className="text-sm font-medium">{title}</span><label className="flex items-center gap-2 text-sm">Patient data<select aria-label="Patient data source" value={mode} onChange={e => setMode(e.target.value as 'mock' | 'backend')} className="h-9 rounded-md border bg-white px-2 focus-visible:outline-2 focus-visible:outline-ring"><option value="mock">Mock · Offline</option><option value="backend">FastAPI · Synthetic</option></select></label>{apiConfig.configurationWarning && <span role="status" className="text-sm text-amber-900">{apiConfig.configurationWarning}</span>}</div>
           <div className="flex items-center gap-2.5"><span className="flex size-8 items-center justify-center rounded-full bg-slate-100 text-sm font-semibold text-slate-600" aria-hidden="true">CL</span><div><p className="text-sm font-semibold">Demo clinician</p><p className="text-sm text-muted-foreground">Emergency department</p></div></div>
         </header>
         <main id="main-content" tabIndex={-1} className="mx-auto max-w-[1440px] p-5 outline-none lg:p-7">{children}</main>
-        <footer className="mx-5 mb-5 border-t pt-4 text-sm leading-6 text-muted-foreground lg:mx-7" role="note">Demonstration only · Synthetic data · Not clinically validated guidance.</footer>
+        <footer className="mx-5 mb-5 border-t pt-4 text-sm leading-6 text-muted-foreground lg:mx-7" role="note">Demonstration only · Synthetic data · Not clinically validated guidance. DDInter 2.0 attribution: CC BY-NC-SA 4.0 (non-commercial).</footer>
       </div>
     </div>
   )

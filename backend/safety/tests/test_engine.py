@@ -51,7 +51,7 @@ def test_penicillin_allergy():
 
 def test_contraindicated_pairs():
     p = {"medications": [{"name": "simvastatin"}, {"name": "nitroglycerin"}], "allergies": []}
-    assert check(p, "clarithromycin")["alerts"][0]["severity"] == "contraindicated"
+    assert check(p, "clarithromycin")["alerts"][0]["severity"] == "major"  # DDInter level
     assert check(p, "viagra")["alerts"][0]["severity"] == "contraindicated"
 
 

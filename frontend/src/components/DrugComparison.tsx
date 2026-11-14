@@ -23,7 +23,7 @@ const REASON_LABEL: Record<RiskReason['kind'], string> = {
   interaction: 'Interaction',
   allergy: 'Allergy',
   duplication: 'Duplicate therapy',
-  'allergy-unknown': 'Missing information',
+  notice: 'Could not be checked',
   context: 'Patient context',
   'boxed-warning': 'FDA boxed warning',
 }

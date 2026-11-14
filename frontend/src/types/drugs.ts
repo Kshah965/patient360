@@ -4,7 +4,7 @@ export type RiskLevel = 'contraindicated' | 'major' | 'moderate' | 'minor' | 'no
 export type Severity = Exclude<RiskLevel, 'none-found'>
 
 export interface RiskReason {
-  kind: 'interaction' | 'allergy' | 'duplication' | 'allergy-unknown' | 'context' | 'boxed-warning'
+  kind: 'interaction' | 'allergy' | 'duplication' | 'notice' | 'context' | 'boxed-warning'
   severity: Severity | null
   priority: 'primary' | 'collapsed'
   text: string

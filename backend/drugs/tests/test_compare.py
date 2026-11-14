@@ -49,7 +49,8 @@ def test_allergy_and_unknown_allergy(client):
 
     theo = compare(client, "SYN-1004", ["amoxicillin"]).json()["drugs"][0]
     assert theo["riskLevel"] == "none-found"  # nothing in the dataset...
-    assert any(x["kind"] == "allergy-unknown" for x in theo["reasons"])  # ...but the gap is stated
+    notices = [x["text"] for x in theo["reasons"] if x["kind"] == "notice"]  # ...but the gaps are stated
+    assert len(notices) == 2 and any("Allergy" in n for n in notices) and any("Medication list" in n for n in notices)
 
 
 def test_unknown_drug_is_none_found_not_safe(client):
