@@ -2,10 +2,10 @@
 
 ## Get the frontend running
 
-The commands below assume Phase 1/2 work and these docs have been committed and pushed first. At documentation time, `frontend/` was still untracked locally; cloning the remote alone may not yet include it.
+Use the krishna-frontend branch. New local frontend changes must be committed and pushed by the owner before teammates can retrieve them.
 
 ```bash
-git clone https://github.com/Kshah965/patient360.git
+git clone --branch krishna-frontend https://github.com/Kshah965/patient360.git
 cd patient360/frontend
 npm ci
 npm run dev
@@ -21,7 +21,7 @@ npm run lint
 node --test tests/patients.test.mjs
 ```
 
-`npm run preview` serves an existing production build. There is no `npm test` script. Build and lint previously passed, as did all six patient tests. Browser navigation and visual behavior still need manual checks. The earlier dependency installation reported seven moderate advisories; no dependency upgrades were performed as part of this documentation task.
+`npm run preview` serves an existing production build. There is no `npm test` script. Build and lint previously passed, as did the 16 patient/summary/safety tests. Browser navigation and visual behavior still need manual checks. The earlier dependency installation reported seven moderate advisories; no dependency upgrades were performed as part of this documentation task.
 
 ## Demo walkthrough
 
@@ -31,7 +31,7 @@ node --test tests/patients.test.mjs
 4. Use Change patient or return to Patients; Clear selection removes the active record. Reload resets selection.
 5. Try an unmatched search and rapidly switch selections to inspect empty/loading behavior.
 
-Generate Summary, medication selection, and Check Safety are intentionally disabled. They must not be presented as completed features.
+Generate Emergency Summary loads a predefined demo report for the selected patient. Medication Safety now supports curated medication selection and predefined checks; select Owen + Ibuprofen for two mock findings or Mara + Amoxicillin for the exact documented allergy conflict. See [safety handoff](../frontend/MEDICATION_SAFETY_API.md). See [summary handoff](../frontend/EMERGENCY_SUMMARY_API.md) for testing and response contracts.
 
 ## Understand the mock data
 
@@ -47,12 +47,12 @@ Fixtures live in `frontend/src/mocks/patients.ts` and are entirely fictional:
 | SYN-1006 — Felix Rowan | Multiple documented allergies |
 | SYN-1007 — Iris Fenwick | Chronic conditions and incomplete medication reconciliation |
 
-These are scenarios for future demonstration work, not implemented safety results. Dates are fixed fixtures; ages are derived from birth dates. Nulls and empty lists carry different meanings. Preserve synthetic/demo labeling.
+Owen/ibuprofen and Mara/amoxicillin have predefined mock results; no live safety engine is integrated. Dates are fixed fixtures; ages are derived from birth dates. Nulls and empty lists carry different meanings. Preserve synthetic/demo labeling.
 
 ## Connect a backend later
 
 Read [API_INTEGRATION.md](API_INTEGRATION.md) and [frontend/PATIENT_API.md](../frontend/PATIENT_API.md). Keep components calling the existing typed adapter; replace the mock implementation at `frontend/src/services/clinicalApi.ts` once an HTTP adapter is agreed and implemented.
 
-Coordinate endpoint URLs, schema mapping, error handling, request cancellation, local API configuration, and CORS with backend teammates. The frontend currently assumes no endpoint paths. Backend teammates own Node.js services, SQLite, and eventual OpenAI calls; frontend work owns UI and client integration. Summary and safety contracts remain future work.
+Coordinate endpoint URLs, schema mapping, error handling, request cancellation, local API configuration, and CORS with backend teammates. The frontend currently assumes no endpoint paths. Backend teammates own Python FastAPI, SQLite, synthetic FHIR handling, and rule-based safety checks. Person 3 owns frontend, the LLM explanation layer, and pitch. LLM explanations must describe verified findings only. Summary nested wire schemas and safety contracts require agreement.
 
-No application source, dependencies, commits, or pushes were changed by this documentation task.
+Phases 3–4 add frontend mock summary and safety workflows only. No dependencies, backend code, commits, or pushes were added automatically.

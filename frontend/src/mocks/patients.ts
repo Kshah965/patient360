@@ -13,7 +13,7 @@ export const patients: Patient[] = [
   {
     id: 'SYN-1002', name: 'Owen Calder', dateOfBirth: '1955-08-09', sex: 'Male',
     allergies: { status: 'none-known', items: [] },
-    medications: [{ name: 'Warfarin', dose: '3 mg', frequency: 'Daily' }, { name: 'Metoprolol tartrate', dose: '25 mg', frequency: 'Twice daily' }, { name: 'Lisinopril', dose: '10 mg', frequency: 'Daily' }, { name: 'Atorvastatin', dose: '20 mg', frequency: 'Nightly' }],
+    medications: [{ name: 'Warfarin', dose: '3 mg', frequency: 'Daily' }, { name: 'Sertraline', dose: '50 mg orally', frequency: 'Once daily' }, { name: 'Metoprolol tartrate', dose: '25 mg', frequency: 'Twice daily' }, { name: 'Lisinopril', dose: '10 mg', frequency: 'Daily' }, { name: 'Atorvastatin', dose: '20 mg', frequency: 'Nightly' }],
     conditions: ['Atrial fibrillation', 'Hypertension', 'Hyperlipidemia'], history: ['Atrial fibrillation diagnosed in 2020', 'Appendectomy in 1981'],
     encounters: [{ date: '2026-11-02', reason: 'Anticoagulation follow-up', outcome: 'Continued current regimen' }],
     vitals: { recordedAt: '2026-11-02', bloodPressure: '132/82 mmHg', heartRate: 76, temperatureC: 36.6, oxygenSaturation: 98 },

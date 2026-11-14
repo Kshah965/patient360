@@ -1,3 +1,6 @@
+import { prescriptionScenarios } from '../mocks/prescriptionResults'
+import { medications } from '../mocks/medications'
+import { emergencySummaries } from '../mocks/emergencySummaries'
 import { patients } from '../mocks/patients'
 import type { ClinicalApi } from '../types/clinical'
 
@@ -10,6 +13,32 @@ function delay(signal?: AbortSignal): Promise<void> {
   })
 }
 export const mockClinicalApi: ClinicalApi = {
+  async checkPrescription(patientId, prescription, signal) {
+    await delay(signal)
+    const patient = patients.find(p => p.id === patientId)
+    if (!patient) throw new Error('Patient record not found.')
+    const drug = prescription.drug.trim().toLowerCase()
+    if (!medications.some(m => m.drug === drug)) throw new Error('Medication is not in the demo catalog.')
+    const key = `${patientId}:${drug}`
+    const alerts = Object.hasOwn(prescriptionScenarios, key) ? prescriptionScenarios[key] : []
+    return structuredClone({
+      patientId, prescription: { drug }, alerts,
+      limitations: [
+        'Predefined mock response only. This is not a comprehensive medication safety assessment.',
+        'Clinical severity and interaction evidence require backend verification. Demo priority is illustrative.',
+        ...(patient.allergies.status === 'unknown' ? ['Allergy information is unavailable.'] : []),
+        ...(patient.medications === null ? ['Current medication information is unavailable.'] : []),
+        ...(patient.conditions === null ? ['Medical condition information is unavailable.'] : []),
+      ],
+      provenance: 'synthetic-demo',
+    })
+  },
+  async getEmergencySummary(patientId, signal) {
+    await delay(signal)
+    const summary = Object.hasOwn(emergencySummaries, patientId) ? emergencySummaries[patientId] : undefined
+    if (!summary) throw new Error('Emergency summary not found.')
+    return structuredClone(summary)
+  },
   async searchPatients(query, signal) {
     await delay(signal)
     const term = query.trim().toLowerCase()
