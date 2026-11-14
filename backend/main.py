@@ -7,6 +7,7 @@ from contextlib import asynccontextmanager
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
+from explanations.routes import router as explanations_router
 from patients.db import init_db
 from patients.routes import router as patients_router
 from safety.routes import router as safety_router
@@ -22,3 +23,4 @@ app = FastAPI(title="patient360", lifespan=lifespan)
 app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_methods=["*"], allow_headers=["*"])
 app.include_router(patients_router)
 app.include_router(safety_router)
+app.include_router(explanations_router)

@@ -6,8 +6,8 @@ Patient360 is a MedTech hackathon prototype intended to help emergency departmen
 
 This is a doctor-facing clinical decision-support workspace, not a patient portal.
 
-1. **AI emergency patient summaries — planned:** condense conditions, allergies, medications, and relevant history into an easy-to-scan emergency report. The current UI contains a disabled Generate Summary action; no summary service or AI integration exists.
-2. **Medication safety checking — planned:** demonstrate potential drug interactions, allergy conflicts, and contraindications for a proposed prescription. The current UI contains disabled medication selection and Check Safety controls; no checking logic or results exist.
+1. **Emergency patient summaries — mock frontend implemented:** condense conditions, allergies, medications, and relevant history into an easy-to-scan emergency report. The current UI loads predefined synthetic summaries asynchronously; no AI integration exists.
+2. **Medication safety checking — mock frontend implemented:** demonstrate potential drug interactions, allergy conflicts, and contraindications for a proposed prescription. The current UI loads predefined interaction/allergy scenario results with illustrative priority, sources, and expandable findings. No actual safety engine or clinical validation exists.
 
 The completed foundation is a patient directory and clinical profile shared across Dashboard, Patients, and Medication Safety pages.
 
@@ -19,11 +19,11 @@ The completed foundation is a patient directory and clinical profile shared acro
 | Styling and UI | Tailwind CSS 4, local shadcn/ui components, Lucide icons | Implemented |
 | Routing and state | React Router 7, React Context and hooks | Implemented |
 | Demo records | Seven typed synthetic fixtures and asynchronous mock services | Implemented |
-| Backend | Lightweight Node.js service | Planned; owned by backend teammates |
+| Backend | Python FastAPI | Planned; owned by backend teammates |
 | Database | SQLite for demo data | Planned; no database integration exists here |
-| Summarization | OpenAI API through the backend | Planned; no integration exists here |
+| Summarization | LLM explanations of verified findings only | Planned; no integration exists here |
 
-Frontend work is limited to presentation, state, mock services, and future API integration. Backend endpoints, database implementation, and OpenAI integration belong to other teammates.
+Person 3 owns frontend, the LLM explanation layer, and pitch. The planned backend consumes synthetic FHIR records and performs rule-based safety checks; the current frontend fixtures are normalized objects, not FHIR. Frontend implementation is limited to presentation, state, mock services, and future API integration. Backend endpoints, database implementation, and OpenAI integration belong to other teammates.
 
 ## Goals and boundaries
 

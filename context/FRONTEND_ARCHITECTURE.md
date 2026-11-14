@@ -4,7 +4,7 @@
 
 The existing `frontend/` application uses React 19, TypeScript 6, and Vite 8. `main.tsx` mounts the application in React StrictMode. Vite includes the React and Tailwind CSS 4 plugins. `src/index.css` imports Tailwind and defines navy, teal, white, and light-gray theme tokens.
 
-`components.json` configures shadcn/ui's New York style, TypeScript, CSS variables, and Lucide icons. Local Button, Card, and Badge primitives live in `components/ui/`; Button uses Radix Slot and class-variance-authority. `cn()` combines clsx and tailwind-merge. The `@/` alias resolves to `src/` through Vite and TypeScript configuration. Directory search and medication placeholder controls use native HTML inputs/selects.
+`components.json` configures shadcn/ui's New York style, TypeScript, CSS variables, and Lucide icons. Local Button, Card, and Badge primitives live in `components/ui/`; Button uses Radix Slot and class-variance-authority. `cn()` combines clsx and tailwind-merge. The `@/` alias resolves to `src/` through Vite and TypeScript configuration. Directory search and medication controls use native HTML inputs/selects.
 
 ## Structure
 
@@ -16,8 +16,14 @@ frontend/
 │   ├── index.css                  # Tailwind import and theme
 │   ├── components/
 │   │   ├── layout/AppShell.tsx    # Sidebar, header, demo notice
-│   │   ├── WorkspaceOverview.tsx  # Page composition and disabled future tools
+│   │   ├── WorkspaceOverview.tsx  # Page composition for clinical workflows
 │   │   ├── PatientDirectory.tsx   # Search and selectable patient table
+│   │   ├── EmergencySummaryPanel.tsx # Generation and structured report
+│   │   ├── PrescriptionChecker.tsx # Medication selection/check workflow
+│   │   ├── MedicationSearch.tsx    # Curated catalog filter/select
+│   │   ├── SafetyResults.tsx       # Prioritization and expansion
+│   │   ├── SafetyAlert.tsx         # Finding details and sources
+│   │   ├── AlternativeOptions.tsx  # Supplied alternatives only
 │   │   ├── PatientProfile.tsx     # Clinical profile and request states
 │   │   └── ui/                    # Button, Card, Badge
 │   ├── hooks/                    # usePatient and usePatientSearch
@@ -42,10 +48,10 @@ Retained starter assets and `App.css` are not part of the active dashboard desig
 | --- | --- |
 | `/` | Clinical Dashboard with selected patient profile |
 | `/patients` | Searchable directory plus selected patient profile |
-| `/medication-safety` | Same patient context, with disabled safety controls presented first |
+| `/medication-safety` | Same patient context, with mock safety checking presented first |
 | Any other path | Not-found view with a dashboard link |
 
-All views use AppShell and WorkspaceOverview. Summary and medication sections are placeholders with disabled actions, not completed clinical tools.
+All views use AppShell and WorkspaceOverview. EmergencySummaryPanel loads predefined demo reports; PrescriptionChecker loads predefined mock scenario results. `usePrescriptionCheck` wraps a patient/drug-scoped store with cancellation and identity guards; results clear immediately on input changes. See [safety integration](../frontend/MEDICATION_SAFETY_API.md). `useEmergencySummary` wraps a patient-scoped request store using useSyncExternalStore. Identity changes reset report output immediately, cleanup aborts requests, and sequence/identity guards prevent stale updates. Summaries reset on route unmount. See [summary integration](../frontend/EMERGENCY_SUMMARY_API.md).
 
 ## State and asynchronous requests
 

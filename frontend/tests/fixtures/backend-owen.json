@@ -1,0 +1,248 @@
+{
+  "patient": {
+    "id": "SYN-1002",
+    "name": "Owen Calder",
+    "dateOfBirth": "1955-08-09",
+    "sex": "Male",
+    "allergies": {
+      "status": "none-known",
+      "items": []
+    },
+    "medications": [
+      {
+        "id": 7,
+        "name": "Warfarin",
+        "dose": "3 mg",
+        "frequency": "Daily"
+      },
+      {
+        "id": 8,
+        "name": "Metoprolol tartrate",
+        "dose": "25 mg",
+        "frequency": "Twice daily"
+      },
+      {
+        "id": 9,
+        "name": "Lisinopril",
+        "dose": "10 mg",
+        "frequency": "Daily"
+      },
+      {
+        "id": 10,
+        "name": "Atorvastatin",
+        "dose": "20 mg",
+        "frequency": "Nightly"
+      }
+    ],
+    "conditions": [
+      "Atrial fibrillation",
+      "Hypertension",
+      "Hyperlipidemia"
+    ],
+    "history": [
+      "Atrial fibrillation diagnosed in 2020",
+      "Appendectomy in 1981"
+    ],
+    "encounters": [
+      {
+        "date": "2026-11-02",
+        "reason": "Anticoagulation follow-up",
+        "outcome": "Continued current regimen"
+      }
+    ],
+    "vitals": {
+      "recordedAt": "2026-11-02",
+      "bloodPressure": "132/82 mmHg",
+      "heartRate": 76.0,
+      "temperatureC": 36.6,
+      "oxygenSaturation": 98.0
+    },
+    "observations": [
+      {
+        "recordedAt": "2026-11-02",
+        "category": "vital",
+        "name": "oxygen_saturation",
+        "value": "98",
+        "unit": "%"
+      },
+      {
+        "recordedAt": "2026-11-02",
+        "category": "vital",
+        "name": "temperature_c",
+        "value": "36.6",
+        "unit": "\u00b0C"
+      },
+      {
+        "recordedAt": "2026-11-02",
+        "category": "vital",
+        "name": "heart_rate",
+        "value": "76",
+        "unit": "bpm"
+      },
+      {
+        "recordedAt": "2026-11-02",
+        "category": "vital",
+        "name": "blood_pressure",
+        "value": "132/82",
+        "unit": "mmHg"
+      }
+    ],
+    "criticalAlerts": [
+      {
+        "severity": "high",
+        "kind": "anticoagulant",
+        "message": "On blood thinner (Warfarin)"
+      }
+    ]
+  },
+  "check": {
+    "drug": "ibuprofen",
+    "total_found": 2,
+    "shown": 1,
+    "alerts": [
+      {
+        "severity": "major",
+        "explanation": "Ibuprofen with warfarin: NSAIDs may increase the anticoagulant effect and bleeding risk of oral anticoagulants like warfarin.",
+        "management": "Use together only if benefit outweighs risk. Check INR frequently and adjust the warfarin dose, especially when starting or stopping the NSAID. Tell the patient to report any unusual bleeding or bruising.",
+        "source": "DDInter 2.0 Interaction Checker: warfarin + ibuprofen",
+        "source_id": null,
+        "verified": true,
+        "type": "interaction",
+        "drugs": [
+          "ibuprofen",
+          "warfarin"
+        ],
+        "priority": "primary",
+        "context": [
+          "Age 65 or older: higher NSAID bleeding and kidney risk (prototype heuristic)."
+        ],
+        "alternatives": [
+          {
+            "drug": "acetaminophen",
+            "indication": "pain",
+            "rationale": "Pain relief without NSAID bleeding risk; considered the pain reliever of choice for patients on warfarin, and does not interfere with low-dose aspirin.",
+            "monitoring": "With regular high doses (over about 1.3 g/day for more than a week), monitor INR more closely.",
+            "source": "DDInter 2.0 Interaction Checker: acetaminophen + warfarin; acetylsalicylic acid + ibuprofen",
+            "alerts_found": [
+              "Acetaminophen with warfarin: Regular high doses of acetaminophen (over about 1.3 g/day for more than a week) may increase warfarin's anticoagulant effect; brief, occasional use at normal doses has not been linked to this."
+            ]
+          }
+        ]
+      },
+      {
+        "severity": "moderate",
+        "explanation": "Ibuprofen with lisinopril: NSAIDs can reduce the blood-pressure-lowering effect of ACE inhibitors like lisinopril and may worsen kidney function, especially in elderly or dehydrated patients.",
+        "management": "If the NSAID is used for more than a week, monitor blood pressure closely after starting, stopping, or changing the NSAID dose, and check kidney function periodically. Not expected with short, occasional use.",
+        "source": "DDInter 2.0 Interaction Checker: lisinopril + ibuprofen",
+        "source_id": null,
+        "verified": true,
+        "type": "interaction",
+        "drugs": [
+          "ibuprofen",
+          "lisinopril"
+        ],
+        "priority": "collapsed",
+        "context": [],
+        "alternatives": []
+      }
+    ],
+    "disclaimer": "Experimental prototype on synthetic data. No interaction found in our dataset does not mean a combination is safe.",
+    "check_id": 1
+  },
+  "safetyExplanation": {
+    "patient_id": "SYN-1002",
+    "kind": "safety",
+    "check_id": 1,
+    "mode": "template",
+    "model": null,
+    "reason": "missing-key",
+    "items": [
+      {
+        "fact_id": "alert-0",
+        "text": "Ibuprofen with warfarin: NSAIDs may increase the anticoagulant effect and bleeding risk of oral anticoagulants like warfarin.",
+        "source": "DDInter 2.0 Interaction Checker: warfarin + ibuprofen",
+        "reference": null
+      },
+      {
+        "fact_id": "alert-1",
+        "text": "Ibuprofen with lisinopril: NSAIDs can reduce the blood-pressure-lowering effect of ACE inhibitors like lisinopril and may worsen kidney function, especially in elderly or dehydrated patients.",
+        "source": "DDInter 2.0 Interaction Checker: lisinopril + ibuprofen",
+        "reference": null
+      }
+    ],
+    "omitted_unverified": 0,
+    "notice": "Explanatory excerpts only. Deterministic findings remain authoritative; this is not clinical validation."
+  },
+  "summaryExplanation": {
+    "patient_id": "SYN-1002",
+    "kind": "summary",
+    "check_id": null,
+    "mode": "template",
+    "model": null,
+    "reason": "missing-key",
+    "items": [
+      {
+        "fact_id": "critical-0",
+        "text": "On blood thinner (Warfarin)",
+        "source": "Synthetic patient record",
+        "reference": null
+      },
+      {
+        "fact_id": "allergies",
+        "text": "No known allergies documented.",
+        "source": "Synthetic patient record",
+        "reference": null
+      },
+      {
+        "fact_id": "medications",
+        "text": "Current medications: Warfarin 3 mg, Daily; Metoprolol tartrate 25 mg, Twice daily; Lisinopril 10 mg, Daily; Atorvastatin 20 mg, Nightly",
+        "source": "Synthetic patient record",
+        "reference": null
+      },
+      {
+        "fact_id": "conditions",
+        "text": "Conditions: Atrial fibrillation; Hypertension; Hyperlipidemia",
+        "source": "Synthetic patient record",
+        "reference": null
+      },
+      {
+        "fact_id": "history",
+        "text": "Medical history: Atrial fibrillation diagnosed in 2020; Appendectomy in 1981",
+        "source": "Synthetic patient record",
+        "reference": null
+      },
+      {
+        "fact_id": "encounters",
+        "text": "Recent encounter: 2026-11-02: Anticoagulation follow-up. Continued current regimen",
+        "source": "Synthetic patient record",
+        "reference": null
+      },
+      {
+        "fact_id": "observation-0",
+        "text": "Recorded 2026-11-02: oxygen_saturation 98 %",
+        "source": "Synthetic patient record",
+        "reference": null
+      },
+      {
+        "fact_id": "observation-1",
+        "text": "Recorded 2026-11-02: temperature_c 36.6 \u00b0C",
+        "source": "Synthetic patient record",
+        "reference": null
+      },
+      {
+        "fact_id": "observation-2",
+        "text": "Recorded 2026-11-02: heart_rate 76 bpm",
+        "source": "Synthetic patient record",
+        "reference": null
+      },
+      {
+        "fact_id": "observation-3",
+        "text": "Recorded 2026-11-02: blood_pressure 132/82 mmHg",
+        "source": "Synthetic patient record",
+        "reference": null
+      }
+    ],
+    "omitted_unverified": 0,
+    "notice": "Explanatory excerpts only. Deterministic findings remain authoritative; this is not clinical validation."
+  }
+}
