@@ -1,0 +1,12 @@
+{
+  "id": "demo",
+  "age": 68,
+  "medications": [
+    {"name": "warfarin", "status": "active"},
+    {"name": "sertraline", "status": "active"},
+    {"name": "lisinopril", "status": "active"},
+    {"name": "aspirin", "status": "active"},
+    {"name": "omeprazole", "status": "active"}
+  ],
+  "allergies": [{"allergen": "penicillin", "severity": "high"}]
+}

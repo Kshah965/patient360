@@ -1,0 +1,119 @@
+[
+ {
+  "a": "warfarin",
+  "b": "ibuprofen",
+  "severity": "major",
+  "explanation": "NSAIDs may increase the anticoagulant effect and bleeding risk of oral anticoagulants like warfarin.",
+  "management": "Use together only if benefit outweighs risk. Check INR frequently and adjust the warfarin dose, especially when starting or stopping the NSAID. Tell the patient to report any unusual bleeding or bruising.",
+  "source": "DDInter 2.0 Interaction Checker: warfarin + ibuprofen",
+  "verified": true
+ },
+ {
+  "a": "warfarin",
+  "b": "aspirin",
+  "severity": "major",
+  "explanation": "TODO from source",
+  "management": "TODO from source",
+  "source": "TODO",
+  "verified": false
+ },
+ {
+  "a": "warfarin",
+  "b": "sertraline",
+  "severity": "moderate",
+  "explanation": "TODO from source",
+  "management": "TODO from source",
+  "source": "TODO",
+  "verified": false
+ },
+ {
+  "a": "warfarin",
+  "b": "acetaminophen",
+  "severity": "moderate",
+  "explanation": "Regular high doses of acetaminophen (over about 1.3 g/day for more than a week) may increase warfarin's anticoagulant effect; brief, occasional use at normal doses has not been linked to this.",
+  "management": "Acetaminophen is still considered the pain reliever of choice for patients on warfarin. Use caution with high doses taken for more than a few days, especially in older patients or those who drink alcohol, and monitor INR more closely. Tell the patient to report any signs of bleeding.",
+  "source": "DDInter 2.0 Interaction Checker: acetaminophen + warfarin",
+  "verified": true
+ },
+ {
+  "a": "ibuprofen",
+  "b": "aspirin",
+  "severity": "major",
+  "explanation": "Ibuprofen can block the heart-protective antiplatelet effect of low-dose aspirin, and the combination raises the risk of serious GI bleeding and ulcers.",
+  "management": "Avoid regular ibuprofen in patients taking low-dose aspirin for heart protection; occasional use is acceptable. With immediate-release aspirin, give ibuprofen at least 30 minutes after or 8 hours before the aspirin dose. Acetaminophen does not interfere. Take with food and watch for signs of GI bleeding.",
+  "source": "DDInter 2.0 Interaction Checker: acetylsalicylic acid + ibuprofen",
+  "verified": true
+ },
+ {
+  "a": "ibuprofen",
+  "b": "sertraline",
+  "severity": "moderate",
+  "explanation": "SSRIs like sertraline can affect platelet function and raise bleeding risk when combined with drugs that cause ulcers or affect clotting, such as NSAIDs.",
+  "management": "Use with caution and monitor for bleeding. Tell the patient to report any signs of bleeding, such as unusual bruising or black stools.",
+  "source": "DDInter 2.0 Interaction Checker: ibuprofen + sertraline",
+  "verified": true
+ },
+ {
+  "a": "ibuprofen",
+  "b": "lisinopril",
+  "severity": "moderate",
+  "explanation": "NSAIDs can reduce the blood-pressure-lowering effect of ACE inhibitors like lisinopril and may worsen kidney function, especially in elderly or dehydrated patients.",
+  "management": "If the NSAID is used for more than a week, monitor blood pressure closely after starting, stopping, or changing the NSAID dose, and check kidney function periodically. Not expected with short, occasional use.",
+  "source": "DDInter 2.0 Interaction Checker: lisinopril + ibuprofen",
+  "verified": true
+ },
+ {
+  "a": "ibuprofen",
+  "b": "omeprazole",
+  "severity": "minor",
+  "explanation": "No interaction description is available. The downloaded DDInter data lists this pair as minor; DDInter 2.0 lists it as unknown.",
+  "management": "No specific action listed.",
+  "source": "DDInter download (minor); DDInter 2.0 Interaction Checker: omeprazole + ibuprofen (unknown, no description)",
+  "verified": true
+ },
+ {
+  "a": "simvastatin",
+  "b": "clarithromycin",
+  "severity": "major",
+  "explanation": "TODO from source",
+  "management": "TODO from source",
+  "source": "TODO",
+  "verified": false
+ },
+ {
+  "a": "clopidogrel",
+  "b": "omeprazole",
+  "severity": "major",
+  "explanation": "TODO from source",
+  "management": "TODO from source",
+  "source": "TODO",
+  "verified": false
+ },
+ {
+  "a": "sertraline",
+  "b": "tramadol",
+  "severity": "major",
+  "explanation": "TODO from source",
+  "management": "TODO from source",
+  "source": "TODO",
+  "verified": false
+ },
+ {
+  "a": "sildenafil",
+  "b": "nitroglycerin",
+  "severity": "contraindicated",
+  "explanation": "TODO from source",
+  "management": "TODO from source",
+  "source": "TODO",
+  "verified": false
+ },
+ {
+  "a": "lisinopril",
+  "b": "spironolactone",
+  "severity": "moderate",
+  "explanation": "TODO from source",
+  "management": "TODO from source",
+  "source": "TODO",
+  "verified": false
+ }
+]
