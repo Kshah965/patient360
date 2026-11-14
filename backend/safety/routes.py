@@ -1,16 +1,19 @@
 """POST /patients/{pid}/check
 
-Person A: include this router in the main FastAPI app with
-    from safety.routes import router as safety_router
-    app.include_router(safety_router)
-and replace get_patient() below with your loader. It must return:
+Included in the main app (backend/main.py). Patients are loaded from the
+patient tables by patients.repo.get_patient_for_check, which returns:
     {"age": int, "medications": [{"name", "rxcui", "status"}], "allergies": [{"allergen", "severity"}]}
+The id "demo" still loads fixtures/demo_patient.json, so this works without a seeded DB.
 """
 import json
 import pathlib
+import sqlite3
 
 from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel
+
+from patients import repo
+from patients.db import session
 
 from .engine import check
 
@@ -22,8 +25,22 @@ class CheckReq(BaseModel):
     drug: str
 
 
-def get_patient(pid):  # TEMP stub until Person A's loader exists
-    return json.loads(FIXTURE.read_text()) if pid == "demo" else None
+def get_patient(pid):
+    if pid == "demo":
+        return json.loads(FIXTURE.read_text())
+    try:
+        with session() as conn:
+            return repo.get_patient_for_check(conn, pid)
+    except sqlite3.OperationalError:  # patient tables not created yet (e.g. safety dev_app alone)
+        return None
+
+
+def log_result(pid, result):
+    try:
+        with session() as conn:
+            repo.log_check(conn, pid, result)
+    except sqlite3.OperationalError:
+        pass  # logging must never break a check
 
 
 @router.post("/patients/{pid}/check")
@@ -31,4 +48,6 @@ def check_route(pid: str, req: CheckReq):
     patient = get_patient(pid)
     if not patient:
         raise HTTPException(404, "patient not found")
-    return check(patient, req.drug)
+    result = check(patient, req.drug)
+    log_result(pid, result)
+    return result
