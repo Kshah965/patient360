@@ -24,15 +24,24 @@ SALTS = re.compile(r"\s+(hydrochloride|hcl|sodium|potassium|sulfate|maleate|besy
 NSAIDS = {"ibuprofen", "naproxen", "diclofenac", "ketorolac", "meloxicam"}
 BLEED = NSAIDS | {"warfarin", "aspirin", "clopidogrel", "apixaban", "rivaroxaban",
                   "sertraline", "fluoxetine", "citalopram", "escitalopram", "paroxetine"}
-ALLERGY_FALLBACK = {
+ALLERGY_GROUPS = {  # allergy to any member (or the group name) flags every member
     "penicillin": {"penicillin", "amoxicillin", "ampicillin", "piperacillin", "dicloxacillin", "nafcillin"},
+    "nsaid": {"ibuprofen", "naproxen", "diclofenac", "ketorolac", "meloxicam", "aspirin"},
 }
+
+
+def same_group(allergen, drug):
+    return any((allergen == g or allergen in m) and drug in m for g, m in ALLERGY_GROUPS.items())
 DISCLAIMER = ("Experimental prototype on synthetic data. No interaction found in our dataset "
               "does not mean a combination is safe.")
 
 
+FORMS = re.compile(r"\b(inhaler|tablets?|capsules?|oral|injection|solution|suspension|cream|ointment|patch|spray)\b")
+
+
 def key(name):
-    return SALTS.sub("", name.lower().strip())
+    n = SALTS.sub("", name.lower().strip())
+    return re.sub(r"\s+", " ", FORMS.sub("", n)).strip()
 
 
 def med_ingredient(m):
@@ -91,16 +100,15 @@ def allergy_alerts(allergies, drug, drug_rx):
     for al in allergies:
         a_rx, a_name = to_ingredient(al["allergen"])
         a_name = key(a_name)
-        hit = (
-            a_name == drug
-            or drug in ALLERGY_FALLBACK.get(a_name, set())
-            or bool(drug_cls and a_rx and drug_cls & atc_level3(a_rx))
-        )
+        exact = a_name == drug
+        hit = exact or same_group(a_name, drug) or bool(drug_cls and a_rx and drug_cls & atc_level3(a_rx))
         if hit:
-            sev = {"high": "major", "low": "moderate"}.get(str(al.get("severity", "high")).lower(), "major")
+            sev = {"high": "major", "low": "moderate"}.get(str(al.get("severity") or "high").lower(), "major")
+            reaction = f" (reaction: {al['reaction']})" if al.get("reaction") else ""
+            why = "" if exact else f" {drug.title()} is in the same drug group."
             out.append({
                 "severity": sev, "type": "allergy", "drugs": [drug],
-                "explanation": f"Recorded allergy to {al['allergen']}; {drug} is in the same group.",
+                "explanation": f"Patient has a recorded allergy to {al['allergen']}{reaction}.{why}",
                 "management": "Avoid unless the allergy has been evaluated.",
                 "source": "Patient record (allergy list)", "source_id": None, "verified": True,
             })
@@ -121,7 +129,14 @@ def context_notes(drug, patient, med_names):
 def check(patient, drug):
     drug_rx, drug = to_ingredient(drug)
     drug = key(drug)
-    meds = [m for m in patient["medications"] if m.get("status", "active") == "active"]
+    notices = []
+    if patient.get("medications") is None:
+        notices.append("Medication list is unavailable for this patient, so drug interactions could not be checked.")
+    if patient.get("medications_incomplete"):
+        notices.append("Medication list is incomplete, so interactions with unlisted medications could not be checked.")
+    if patient.get("allergy_status") == "unknown":
+        notices.append("Allergy information is unknown for this patient, so allergies could not be checked.")
+    meds = [m for m in (patient.get("medications") or []) if m.get("status", "active") == "active"]
     names = [med_ingredient(m) for m in meds]
 
     alerts = sorted(
@@ -150,5 +165,6 @@ def check(patient, drug):
         "total_found": len(alerts),
         "shown": sum(a["priority"] == "primary" for a in alerts),
         "alerts": alerts,
+        "notices": notices,
         "disclaimer": DISCLAIMER,
     }

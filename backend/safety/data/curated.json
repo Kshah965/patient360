@@ -115,5 +115,23 @@
   "management": "TODO from source",
   "source": "TODO",
   "verified": false
+ },
+ {
+  "a": "ibuprofen",
+  "b": "metoprolol",
+  "severity": "moderate",
+  "explanation": "NSAIDs can reduce the blood-pressure-lowering effect of beta-blockers like metoprolol, partly by causing fluid retention.",
+  "management": "If the NSAID is used for more than a week, monitor blood pressure more closely after starting, stopping, or changing the NSAID dose. Not expected with short, occasional use.",
+  "source": "DDInter 2.0 Interaction Checker: metoprolol + ibuprofen",
+  "verified": true
+ },
+ {
+  "a": "ibuprofen",
+  "b": "atorvastatin",
+  "severity": "minor",
+  "explanation": "No interaction description is available. The downloaded DDInter data lists this pair as minor; DDInter 2.0 lists it as unknown.",
+  "management": "No specific action listed.",
+  "source": "DDInter download (minor); DDInter 2.0 Interaction Checker: ibuprofen + atorvastatin (unknown, no description)",
+  "verified": true
  }
 ]
