@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom'
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
 
+import { DrugComparison } from '@/components/DrugComparison'
 import { PatientDirectory } from '@/components/PatientDirectory'
 import { PatientProfile } from '@/components/PatientProfile'
 import { usePatient } from '@/hooks/usePatient'
@@ -34,6 +35,8 @@ export function WorkspaceOverview({ view }: { view: View }) {
         <PatientProfile key={selectedId ?? 'none'} />
         <Card>{view === 'safety' ? <><div className="[&>section]:border-t-0"><PrescriptionChecker /></div><div className="border-t"><EmergencySummaryPanel key={selectedId ?? 'none'} /></div></> : <><EmergencySummaryPanel key={selectedId ?? 'none'} /><PrescriptionChecker /></>}</Card>
       </div>
+      {/* Keyed by patient so switching patients clears the comparison and aborts its requests. */}
+      {view === 'safety' && <div className="mt-5"><DrugComparison key={selectedId ?? 'none'} /></div>}
     </>
   )
 }

@@ -5,6 +5,7 @@ export function summaryFromPatient(p: Patient): EmergencySummary {
   for (const [key, label] of [['medications', 'Medication information'], ['conditions', 'Conditions'], ['history', 'Medical history'], ['encounters', 'Encounters'], ['vitals', 'Complete vital signs']] as const) {
     if (p[key] === null) missing.push(`${label} not available.`)
   }
+  if (p.vitals && [p.vitals.bloodPressure, p.vitals.heartRate, p.vitals.temperatureC, p.vitals.oxygenSaturation].some(x => x === null)) missing.push('Some vital signs not recorded.')
   if (p.sex === null) missing.push('Sex not recorded.')
   if (p.allergies.status === 'unknown') missing.push('Allergy information not available.')
   return {

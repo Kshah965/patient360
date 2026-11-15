@@ -29,4 +29,5 @@ export interface BackendCheckResponse {
   disclaimer: string
   check_id?: number | null
   alerts: BackendSafetyAlert[]
+  notices?: string[] // parts of the check that could not run (unknown allergies, missing med list)
 }

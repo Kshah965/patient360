@@ -13,7 +13,7 @@ function PatientPrescriptionChecker({ patientId, mode }: { patientId: string; mo
   const state = usePrescriptionCheck(patientId, drug, mode)
   return <>
     <form className="mt-4" onSubmit={e => { e.preventDefault(); if (drug && state.status !== 'loading') void state.check() }}>
-      <MedicationSearch value={drug} onChange={setDrug} disabled={false} />
+      <MedicationSearch value={drug} onChange={setDrug} disabled={false} mode={mode} />
       <Button type="submit" className="mt-3" disabled={!drug || state.status === 'loading'}>{state.status === 'loading' ? 'Checking…' : state.status === 'error' ? 'Retry Medication Safety Check' : 'Check Medication Safety'}</Button>
     </form>
     {state.status === 'loading' && <p role="status" className="mt-3 text-sm text-muted-foreground">{mode === 'backend' ? 'Loading backend engine findings…' : 'Loading predefined demo findings…'}</p>}

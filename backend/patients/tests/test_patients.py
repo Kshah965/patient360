@@ -67,7 +67,8 @@ def test_add_patient(client):
     assert p["id"] == "SYN-1008"
     assert p["allergies"]["status"] == "unknown"  # missing allergy info never becomes none-known
     assert p["conditions"] is None  # not sent -> unavailable
-    assert p["vitals"] is None  # partial set until the frontend allows nullable vitals
+    assert p["vitals"] == {"recordedAt": "2026-11-14", "bloodPressure": None, "heartRate": 90,
+                           "temperatureC": None, "oxygenSaturation": None}  # partial vitals are shown
     assert [o["name"] for o in p["observations"]] == ["heart_rate"]
     assert p["criticalAlerts"][0]["message"] == "On blood thinner (Apixaban)"
     assert "SYN-1008" in [row["id"] for row in client.get("/patients").json()]
@@ -115,3 +116,23 @@ def test_seed_reset_keeps_drug_interactions(client):
 def test_foreign_keys_enforced(client):
     with session() as conn, pytest.raises(sqlite3.IntegrityError):
         conn.execute("INSERT INTO medications (patient_id, name) VALUES ('nobody', 'x')")
+
+
+def test_record_vitals_at_visit(client):
+    r = client.post("/patients/SYN-1004/vitals", json={"bloodPressure": "142 / 90", "heartRate": 104})
+    assert r.status_code == 201
+    v = r.json()["vitals"]
+    assert v["bloodPressure"] == "142/90 mmHg" and v["heartRate"] == 104 and v["temperatureC"] is None
+
+    # Walter has a full set from October; new readings win, older ones stay on record.
+    v = client.post("/patients/SYN-1000/vitals", json={"oxygenSaturation": 91}).json()["vitals"]
+    assert v["oxygenSaturation"] == 91 and v["heartRate"] == 78
+    history = [o for o in client.get("/patients/SYN-1000").json()["observations"] if o["name"] == "oxygen_saturation"]
+    assert [o["value"] for o in history] == ["91", "97"]
+
+
+def test_record_vitals_validation(client):
+    assert client.post("/patients/SYN-1000/vitals", json={}).status_code == 422
+    assert client.post("/patients/SYN-1000/vitals", json={"heartRate": 900}).status_code == 422
+    assert client.post("/patients/SYN-1000/vitals", json={"bloodPressure": "high"}).status_code == 422
+    assert client.post("/patients/nobody/vitals", json={"heartRate": 80}).status_code == 404

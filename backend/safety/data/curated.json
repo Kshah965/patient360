@@ -12,19 +12,19 @@
   "a": "warfarin",
   "b": "aspirin",
   "severity": "major",
-  "explanation": "TODO from source",
-  "management": "TODO from source",
-  "source": "TODO",
-  "verified": false
+  "explanation": "The warfarin label lists aspirin (an antiplatelet agent) among drugs that can increase the risk of bleeding.",
+  "management": "Because bleeding risk is increased when these drugs are used concomitantly with warfarin, closely monitor patients receiving any such drug with warfarin.",
+  "source": "FDA drug label: warfarin sodium, Drug Interactions (https://dailymed.nlm.nih.gov/dailymed/lookup.cfm?setid=61ab23a7-bc67-4777-854a-bf43c788a69a)",
+  "verified": true
  },
  {
   "a": "warfarin",
   "b": "sertraline",
   "severity": "moderate",
-  "explanation": "TODO from source",
-  "management": "TODO from source",
-  "source": "TODO",
-  "verified": false
+  "explanation": "The concurrent use of an antiplatelet agent or anticoagulant with sertraline hydrochloride may potentiate the risk of bleeding.",
+  "management": "Inform patients of the increased risk of bleeding associated with the concomitant use of sertraline hydrochloride and antiplatelet agents and anticoagulants. For patients taking warfarin, carefully monitor the international normalized ratio.",
+  "source": "FDA drug label: sertraline hydrochloride, Drug Interactions (https://dailymed.nlm.nih.gov/dailymed/lookup.cfm?setid=687ebdc4-6946-454e-8d46-3207488ccf32)",
+  "verified": true
  },
  {
   "a": "warfarin",
@@ -75,46 +75,46 @@
   "a": "simvastatin",
   "b": "clarithromycin",
   "severity": "major",
-  "explanation": "TODO from source",
-  "management": "TODO from source",
-  "source": "TODO",
-  "verified": false
+  "explanation": "The simvastatin label lists clarithromycin as a strong CYP3A4 inhibitor. Concomitant use of strong CYP3A4 inhibitors with simvastatin increases simvastatin exposure and increases the risk of myopathy and rhabdomyolysis, particularly with higher simvastatin dosages.",
+  "management": "Concomitant use of strong CYP3A4 inhibitors with simvastatin is contraindicated. If treatment with a CYP3A4 inhibitor is unavoidable, suspend simvastatin during the course of strong CYP3A4 inhibitor treatment.",
+  "source": "FDA drug label: simvastatin, Drug Interactions (https://dailymed.nlm.nih.gov/dailymed/lookup.cfm?setid=c85d6d02-6cf6-4995-a590-cfca302ea0c9)",
+  "verified": true
  },
  {
   "a": "clopidogrel",
   "b": "omeprazole",
   "severity": "major",
-  "explanation": "TODO from source",
-  "management": "TODO from source",
-  "source": "TODO",
-  "verified": false
+  "explanation": "In clinical studies, omeprazole was shown to reduce significantly the antiplatelet activity of clopidogrel tablets when given concomitantly or 12 hours apart.",
+  "management": "Avoid concomitant use of clopidogrel tablets with omeprazole or esomeprazole.",
+  "source": "FDA drug label: clopidogrel bisulfate, Drug Interactions (https://dailymed.nlm.nih.gov/dailymed/lookup.cfm?setid=03bec9ad-cd22-44d3-9b82-2796157de1d1)",
+  "verified": true
  },
  {
   "a": "sertraline",
   "b": "tramadol",
   "severity": "major",
-  "explanation": "TODO from source",
-  "management": "TODO from source",
-  "source": "TODO",
-  "verified": false
+  "explanation": "The sertraline label names tramadol among serotonergic drugs that increase the risk of serotonin syndrome, a potentially life-threatening condition.",
+  "management": "Monitor all patients taking sertraline hydrochloride for the emergence of serotonin syndrome. Discontinue treatment with sertraline hydrochloride and any concomitant serotonergic agents immediately if the above symptoms occur, and initiate supportive symptomatic treatment.",
+  "source": "FDA drug label: sertraline hydrochloride, Warnings and Precautions (https://dailymed.nlm.nih.gov/dailymed/lookup.cfm?setid=687ebdc4-6946-454e-8d46-3207488ccf32)",
+  "verified": true
  },
  {
   "a": "sildenafil",
   "b": "nitroglycerin",
   "severity": "contraindicated",
-  "explanation": "TODO from source",
-  "management": "TODO from source",
-  "source": "TODO",
-  "verified": false
+  "explanation": "Nitroglycerin is an organic nitrate. Sildenafil tablets was shown to potentiate the hypotensive effect of nitrates.",
+  "management": "Contraindicated: administration of sildenafil tablets to patients using nitric oxide donors, such as organic nitrates or organic nitrites in any form.",
+  "source": "FDA drug label: sildenafil, Contraindications (https://dailymed.nlm.nih.gov/dailymed/lookup.cfm?setid=5fa4920c-ec29-b879-e063-6294a90adcad)",
+  "verified": true
  },
  {
   "a": "lisinopril",
   "b": "spironolactone",
   "severity": "moderate",
-  "explanation": "TODO from source",
-  "management": "TODO from source",
-  "source": "TODO",
-  "verified": false
+  "explanation": "Potassium-sparing diuretics (spironolactone, amiloride, triamterene, and others) can increase the risk of hyperkalemia.",
+  "management": "If concomitant use of such agents is indicated, monitor the patient's serum potassium frequently.",
+  "source": "FDA drug label: lisinopril, Drug Interactions (https://dailymed.nlm.nih.gov/dailymed/lookup.cfm?setid=bf59ff89-a9fa-4fe3-b167-a5d0cba9e438)",
+  "verified": true
  },
  {
   "a": "ibuprofen",

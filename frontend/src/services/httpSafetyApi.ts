@@ -45,7 +45,7 @@ function parseResponse(value: unknown): BackendCheckResponse {
   const r = object(value)
   if (!Array.isArray(r.alerts)) throw new SafetyApiError('Invalid backend alert list.')
   if (r.check_id !== undefined && r.check_id !== null) count(r.check_id)
-  const result = { ...(r.check_id === undefined ? {} : { check_id: r.check_id as number | null }), drug: string(r.drug), total_found: count(r.total_found), shown: count(r.shown), disclaimer: string(r.disclaimer), alerts: r.alerts.map(parseAlert) }
+  const result = { ...(r.check_id === undefined ? {} : { check_id: r.check_id as number | null }), drug: string(r.drug), total_found: count(r.total_found), shown: count(r.shown), disclaimer: string(r.disclaimer), alerts: r.alerts.map(parseAlert), notices: r.notices === undefined ? [] : strings(r.notices) }
   if (result.shown > result.total_found) throw new SafetyApiError('Invalid backend safety counts.')
   return result
 }
@@ -76,7 +76,7 @@ export function normalizeSafetyResponse(value: unknown, patientId: string, presc
     }
   })
   return {
-    patientId, prescription: { ...prescription }, alerts, provenance: 'backend-engine', backend: { drug: r.drug, total_found: r.total_found, shown: r.shown, disclaimer: r.disclaimer, check_id: r.check_id },
+    patientId, prescription: { ...prescription }, alerts, notices: r.notices ?? [], provenance: 'backend-engine', backend: { drug: r.drug, total_found: r.total_found, shown: r.shown, disclaimer: r.disclaimer, check_id: r.check_id },
     limitations: [r.disclaimer, 'Coverage is limited to the backend rule dataset. Missing records and unlisted interactions are not a safety clearance.', 'Backend verification flags are supplied metadata, not independent clinical validation.',
       ...(r.total_found !== r.alerts.length ? [`Backend reported ${r.total_found} total findings but supplied ${r.alerts.length} alert records.`] : []),
       ...(r.alerts.some(a => !a.verified || /TODO/i.test(a.explanation + a.source + (a.management ?? ''))) ? ['Some backend content is unverified or incomplete; review its evidence status.'] : []),
