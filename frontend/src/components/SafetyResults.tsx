@@ -20,6 +20,5 @@ export function SafetyResults({ result }: { result: PrescriptionCheckResult }) {
       {additional.length > 0 && <div className="mt-4 border-t pt-3"><Button variant="outline" aria-expanded={expanded} aria-controls="additional-findings" onClick={() => setExpanded(value => !value)}>{expanded ? 'Collapse additional findings' : `Show ${additional.length} lower-priority ${additional.length === 1 ? 'finding' : 'findings'}`}</Button><div id="additional-findings" hidden={!expanded} className="mt-4 space-y-5">{additional.map(alert => <SafetyAlert key={alert.id} alert={alert} />)}</div></div>}
     </>}
     {result.provenance === 'backend-engine' && <ExplanationPanel patientId={result.patientId} kind="safety" checkId={result.backend?.check_id ?? undefined} />}
-    {result.limitations.length > 0 && <div className="mt-4 border-t pt-3"><h4 className="text-sm font-semibold">Dataset limitations</h4><ul className="mt-1 list-disc space-y-1 pl-5 text-sm leading-6 text-muted-foreground">{result.limitations.map(text => <li key={text}>{text}</li>)}</ul></div>}
   </section>
 }
