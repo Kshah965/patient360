@@ -41,7 +41,7 @@ Templates are a complete offline explanation path. Optional GPT-4.1 mini use req
 
 “Emergency care starts with incomplete context. Patient360 brings patient history and proposed-medication checks into one clinical workspace.”
 
-1. Choose **FastAPI · Synthetic** in the header. Open Patients and search **Owen** or **SYN-1002**.
+1. Open Patients and search **Owen** or **SYN-1002**. (With `VITE_PATIENT_DATA_MODE=backend` the header hides the data-source switch; without it, pick **Patient records**.)
 2. Select Owen. Point out his documented allergy status, conditions and actual current medications: **warfarin 3 mg daily, metoprolol tartrate 25 mg twice daily, lisinopril 10 mg daily, atorvastatin 20 mg nightly**.
 3. Click **Generate Emergency Summary**. “This structured report comes from the same backend record. Critical information comes first: the backend flags warfarin as a blood thinner. Missing information stays explicit.”
 4. Optionally click **Prepare explanation** below the summary. “These are source-bound handoff excerpts. With no provider key, the application clearly labels the deterministic template; the patient facts are still available.”
@@ -56,7 +56,7 @@ Templates are a complete offline explanation path. Optional GPT-4.1 mini use req
 
 ## Expected-result checklist
 
-- [ ] Header says FastAPI; eight seed patients are available on a fresh seeded DB.
+- [ ] No data-source switch in the header (backend mode); eight seed patients are available on a fresh seeded DB.
 - [ ] Owen ID remains SYN-1002 across pages; no demo-ID alias is used.
 - [ ] Profile and live summary both show the same four backend medications.
 - [ ] No sertraline finding is manufactured. Older mock Owen data is a separate labeled demo dataset.

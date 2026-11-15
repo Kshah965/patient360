@@ -41,7 +41,7 @@ class Explanation(BaseModel):
     reason: str
     items: list[Fact]
     omitted_unverified: int = 0
-    notice: str = "Explanatory excerpts only. Deterministic findings remain authoritative; this is not clinical validation."
+    notice: str = "Explanatory excerpts only. The safety findings above remain authoritative."
 
 
 def safety_facts(alerts):
@@ -59,7 +59,7 @@ def summary_facts(patient):
     """Only record facts, including all alerts and availability warnings."""
     facts = []
     def add(key, value):
-        facts.append(Fact(fact_id=key, text=value, source="Synthetic patient record"))
+        facts.append(Fact(fact_id=key, text=value, source="Patient record"))
     for index, alert in enumerate(patient.get("criticalAlerts", [])):
         add(f"critical-{index}", alert["message"])
     allergies = patient["allergies"]

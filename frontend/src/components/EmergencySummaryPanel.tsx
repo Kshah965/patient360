@@ -14,8 +14,8 @@ function RecordList({ items, empty }: { items: string[] | null; empty: string })
 }
 
 export function EmergencySummaryReport({ summary: s }: { summary: EmergencySummary }) {
-  return <article aria-label="Demo emergency summary" className="mt-4 text-sm leading-6">
-    <p className="mb-3 text-sm text-muted-foreground">{s.provenance === 'backend-record' ? 'Backend-derived structured summary · Synthetic patient' : 'Predefined synthetic demo summary'} · Not clinically validated.</p>
+  return <article aria-label="Emergency summary" className="mt-4 text-sm leading-6">
+    <p className="mb-3 text-sm text-muted-foreground">{s.provenance === 'backend-record' ? 'Structured summary from the patient record' : 'Sample summary'}</p>
     <h3 className="text-lg font-semibold">Priority record information</h3>
     {s.critical_alerts.length > 0 ? <ul className="mt-2 space-y-2">{s.critical_alerts.map((a, i) => <li key={i} className={`border-l-2 pl-3 ${(a.severity === 'critical' || a.severity === 'high') ? 'border-red-600 text-red-900' : (a.severity === 'warning' || a.severity === 'moderate') ? 'border-amber-600 text-amber-950' : 'border-slate-300'}`}><strong>{a.severity === 'high' ? 'High priority' : a.severity === 'moderate' ? 'Review' : a.severity === 'critical' ? 'Critical' : a.severity === 'warning' ? 'Warning' : 'Information'}:</strong> {a.text}<span className="block text-muted-foreground">Source: {a.source}</span></li>)}</ul> : <p className="mt-1 text-muted-foreground">No verified medication safety findings supplied. Safety has not been assessed.</p>}
     {s.medication_context.length > 0 && <div className="mt-3 border-l-2 border-slate-300 pl-3"><h4 className="font-semibold">Medication context</h4><ul className="list-disc pl-5">{s.medication_context.map(note => <li key={note}>{note}</li>)}</ul></div>}

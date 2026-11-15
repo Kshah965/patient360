@@ -44,7 +44,7 @@ def risk_profile(conn, patient, query):
     active = [m for m in (patient.get("medications") or []) if m.get("status", "active") == "active"]
     for note in engine.context_notes(drug, patient, [engine.med_ingredient(m) for m in active]):
         reasons.append({"kind": "context", "severity": None, "priority": "primary", "text": note,
-                        "management": None, "source": "Patient record (prototype heuristic)"})
+                        "management": None, "source": "Patient record (rule-based)"})
 
     cached = load_cached(drug)
     boxed = cached and cached["label"]["sections"].get("boxed_warning")

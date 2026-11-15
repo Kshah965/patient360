@@ -32,7 +32,7 @@ ALLERGY_GROUPS = {  # allergy to any member (or the group name) flags every memb
 
 def same_group(allergen, drug):
     return any((allergen == g or allergen in m) and drug in m for g, m in ALLERGY_GROUPS.items())
-DISCLAIMER = ("Experimental prototype on synthetic data. No interaction found in our dataset "
+DISCLAIMER = ("No interaction found in our dataset "
               "does not mean a combination is safe.")
 
 
@@ -120,9 +120,9 @@ def context_notes(drug, patient, med_names):
     notes = []
     n = sum(m in BLEED for m in med_names)
     if drug in BLEED and n >= 2:
-        notes.append(f"Patient already takes {n} drugs that raise bleeding risk (prototype heuristic).")
+        notes.append(f"Patient already takes {n} drugs that raise bleeding risk (rule-based).")
     if drug in NSAIDS and patient.get("age", 0) >= 65:
-        notes.append("Age 65 or older: higher NSAID bleeding and kidney risk (prototype heuristic).")
+        notes.append("Age 65 or older: higher NSAID bleeding and kidney risk (rule-based).")
     return notes
 
 

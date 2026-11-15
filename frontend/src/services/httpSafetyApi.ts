@@ -95,11 +95,11 @@ export function createHttpSafetyApi(baseUrl: string, fetcher: typeof fetch = fet
       signal?.throwIfAborted()
       let response: Response
       try { response = await fetcher(url, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ drug: prescription.drug }), signal }) }
-      catch (error) { if (signal?.aborted) throw error; throw new SafetyApiError('Backend connection failed. Check the server URL, server availability, and CORS. No mock fallback was used.') }
+      catch (error) { if (signal?.aborted) throw error; throw new SafetyApiError('Backend connection failed. Check the server URL, server availability, and CORS.') }
       signal?.throwIfAborted()
-      if (!response.ok) throw new SafetyApiError(`Backend safety check failed (HTTP ${response.status}). No mock fallback was used.`)
+      if (!response.ok) throw new SafetyApiError(`Backend safety check failed (HTTP ${response.status}).`)
       let payload: unknown
-      try { payload = await response.json() } catch { signal?.throwIfAborted(); throw new SafetyApiError('Backend returned invalid JSON. No mock fallback was used.') }
+      try { payload = await response.json() } catch { signal?.throwIfAborted(); throw new SafetyApiError('Backend returned invalid JSON.') }
       signal?.throwIfAborted()
       return normalizeSafetyResponse(payload, patientId, prescription)
     },

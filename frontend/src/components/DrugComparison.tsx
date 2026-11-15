@@ -327,8 +327,8 @@ export function DrugComparison() {
       </div>
 
       <footer className="mt-5 space-y-1 border-t pt-3 text-xs leading-5 text-muted-foreground">
-        <p>{result?.disclaimer ?? 'Experimental prototype on synthetic data. No interaction found in our dataset does not mean a combination is safe.'} Alternatives are suggestions for clinician review only.</p>
-        <p>Interaction data: DDInter 2.0 (CC BY-NC-SA 4.0) and curated tables. Drug facts: FDA labels via openFDA, not validated for clinical decision-making. Patient data is never sent to the AI model.</p>
+        <p>{result?.disclaimer ?? 'No interaction found in our dataset does not mean a combination is safe.'} Alternatives are suggestions for clinician review only.</p>
+        <p>Interaction data: DDInter 2.0 (CC BY-NC-SA 4.0) and curated tables. Drug facts: FDA drug labels via openFDA. Patient data is never sent to the AI model.</p>
       </footer>
     </Card>
   )
